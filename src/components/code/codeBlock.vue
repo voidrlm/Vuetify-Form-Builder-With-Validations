@@ -27,7 +27,7 @@ export default {
           "\n        <v-text-field\n        label=" +
           field.title +
           "\n        v-model=" +
-          "Field_" +
+          "field_" +
           (index + 1) +
           "\n        ></v-text-field>";
         return textField;
@@ -35,7 +35,11 @@ export default {
       return code;
     },
     dataPart() {
-      return null;
+      let code = this.code.map(function (field, index) {
+        let data = "\n      field_" + (index + 1) + " : null,";
+        return data;
+      });
+      return code;
     },
     fullCode() {
       return (
