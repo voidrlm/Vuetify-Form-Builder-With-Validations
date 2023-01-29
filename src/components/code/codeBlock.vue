@@ -1,6 +1,20 @@
 <template>
   <v-card-text>
+    <v-layout justify-end class="mr-5">
+      <v-btn
+        elevation="0"
+        rounded
+        color="accent"
+        @click="copyCode()"
+        class="mr-2"
+        :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+      >
+        <v-icon size="25px" class="mr-2">mdi-clipboard-outline</v-icon>Copy Code
+      </v-btn>
+    </v-layout>
+
     <v-textarea
+      ref="code"
       :background-color="
         $vuetify.theme.dark ? 'grey darken-3' : 'grey lighten-3'
       "
@@ -9,7 +23,7 @@
       auto-grow
       solo
       :value="fullCode"
-      class="rounded-xl mx-5"
+      class="rounded-lg mx-1"
     ></v-textarea>
   </v-card-text>
 </template>
@@ -25,7 +39,9 @@ export default {
       let code = this.code.map(function (field, index) {
         let textField =
           "\n        <v-text-field\n        label=" +
+          "'" +
           field.title +
+          "'" +
           "\n        v-model=" +
           "field_" +
           (index + 1) +
@@ -53,6 +69,11 @@ export default {
         methods +
         script[1]
       );
+    },
+  },
+  methods: {
+    copyCode() {
+      navigator.clipboard.writeText(this.fullCode);
     },
   },
 };
