@@ -37,19 +37,27 @@ export default {
   computed: {
     textFieldCodes() {
       let code = this.code.map(function (field, index) {
+        let openTextField = "\n        <v-text-field";
+        let label = "\n        label=" + "'" + field.title + "'";
+        let denseProp = field.dense
+          ? "\n        :dense=" + "'" + field.dense + "'"
+          : "";
+        let outlinedProp = field.outlined
+          ? "\n        :outlined=" + "'" + field.outlined + "'"
+          : "";
+        let value = "\n        v-model=" + "'" + "field_" + (index + 1) + "'";
+        let closeTextField = "\n        ></v-text-field>";
+        let counter = field.max
+          ? "\n        :counter=" + "'" + field.max + "'"
+          : "";
         let textField =
-          "\n        <v-text-field\n        label=" +
-          "'" +
-          field.title +
-          "'" +
-          "\n        dense=" +
-          field.dense +
-          ",\n        outlined=" +
-          field.outlined +
-          ",\n        v-model=" +
-          "field_" +
-          (index + 1) +
-          "\n        ></v-text-field>";
+          openTextField +
+          label +
+          denseProp +
+          outlinedProp +
+          value +
+          counter +
+          closeTextField;
         return textField;
       });
       return code;
