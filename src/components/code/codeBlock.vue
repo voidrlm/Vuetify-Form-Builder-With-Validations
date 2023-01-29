@@ -42,7 +42,11 @@ export default {
           "'" +
           field.title +
           "'" +
-          "\n        v-model=" +
+          "\n        dense=" +
+          field.dense +
+          ",\n        outlined=" +
+          field.outlined +
+          ",\n        v-model=" +
           "field_" +
           (index + 1) +
           "\n        ></v-text-field>";
