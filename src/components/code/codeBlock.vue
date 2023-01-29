@@ -36,6 +36,13 @@ export default {
   computed: {
     textFieldCodes() {
       let code = this.code.map(function (field, index) {
+        if (
+          field.type == "E-Mail" ||
+          field.type == "Date" ||
+          field.type == "Number"
+        ) {
+          field.max = 0;
+        }
         let openTextField = "\n        <v-text-field";
         let label = "\n        label=" + "'" + field.title + "'";
         let denseProp = field.dense
@@ -62,8 +69,22 @@ export default {
       return code;
     },
     dataPart() {
+      const emailFieldFound = this.code.some(
+        (field) => field.type === "E-Mail"
+      );
+
+      let emailRules = emailFieldFound
+        ? "\n      emailRules: [" +
+          "\n       v => !!v || 'E-mail is required'," +
+          "\n       v => /.+@.+" +
+          // eslint-disable-next-line no-useless-escape
+          "\..+/.test(v) || 'E-mail must be valid',      \n       ],"
+        : "";
       let code = this.code.map(function (field, index) {
-        let data = "\n      field_" + (index + 1) + " : null,";
+        if (field.type === "E-Mail") {
+          console.log(1);
+        }
+        let data = "\n      field_" + (index + 1) + " : null," + emailRules;
         return data;
       });
       return code;
