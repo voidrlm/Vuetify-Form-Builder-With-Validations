@@ -24,12 +24,12 @@ export default {
     textFieldCodes() {
       let code = this.code.map(function (field, index) {
         let textField =
-          "\n      <v-text-field\n      label=" +
+          "\n        <v-text-field\n        label=" +
           field.title +
-          "\n      v-model=" +
+          "\n        v-model=" +
           "Field_" +
           (index + 1) +
-          "\n      ></v-text-field>";
+          "\n        ></v-text-field>";
         return textField;
       });
       return code;
