@@ -46,6 +46,11 @@
           ></v-flex>
           <v-flex xs4 sm4 md4 lg4 xl4>
             <v-slider
+              :disabled="
+                textfield.type == 'E-Mail' ||
+                textfield.type == 'Date' ||
+                textfield.type == 'Number'
+              "
               thumb-label
               v-model="textfield.max"
               class="mt-5 ml-n4"
