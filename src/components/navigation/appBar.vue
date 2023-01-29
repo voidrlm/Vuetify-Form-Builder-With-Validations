@@ -5,6 +5,8 @@
     dense
     flat
   >
+    <v-toolbar-title>Vuetify Form Builder</v-toolbar-title>
+
     <v-spacer></v-spacer>
     <span
       @click="showClock = true"
