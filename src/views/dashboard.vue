@@ -32,7 +32,7 @@ export default {
     addTextField: function () {
       console.log(1);
       this.formData.push({
-        title: "New field",
+        title: "",
         type: "Number",
         required: false,
       });
