@@ -28,15 +28,41 @@
               flat
             ></v-select></v-flex></v-layout
       ></v-card-text>
-      <v-card-actions class="mt-n10 pa-0 justify-end">
-        <v-switch
-          v-model="textfield.required"
-          class="mr-3 font-weight-medium"
-          inset
-          :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
-          :color="$vuetify.theme.dark ? 'black' : 'white'"
-          :label="'Required'"
-        ></v-switch></v-card-actions
+      <v-card-actions class="mt-n10 pa-0">
+        <v-layout row wrap align-center justify-center>
+          <v-flex xs4 sm4 md4 lg4 xl4>
+            <v-layout row wrap>
+              <v-checkbox
+                v-model="textfield.outlined"
+                label="Outlined"
+                class="mr-5"
+                color="accent darken-2"
+              ></v-checkbox>
+              <v-checkbox
+                v-model="textfield.dense"
+                label="Dense"
+                color="accent darken-2"
+              ></v-checkbox></v-layout
+          ></v-flex>
+          <v-flex xs4 sm4 md4 lg4 xl4>
+            <v-slider
+              thumb-label
+              v-model="textfield.max"
+              class="mt-5 ml-n4"
+              color="accent darken-2"
+              label="Max characters"
+            >
+            </v-slider
+          ></v-flex>
+          <v-flex xs4 sm4 md2 lg2 xl2>
+            <v-switch
+              v-model="textfield.required"
+              class="font-weight-medium"
+              inset
+              :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
+              :color="$vuetify.theme.dark ? 'black' : 'white'"
+              :label="'Required'"
+            ></v-switch></v-flex></v-layout></v-card-actions
     ></v-card>
     <v-layout justify-end class="mr-5">
       <v-btn
