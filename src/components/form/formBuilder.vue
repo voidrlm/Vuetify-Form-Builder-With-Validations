@@ -12,6 +12,7 @@
             ><v-text-field
               rounded
               v-model="textfield.title"
+              label="Label"
               solo
               class="ma-2"
               flat
@@ -24,7 +25,18 @@
               solo
               item-text="title"
               class="ma-2"
-            ></v-select></v-flex></v-layout></v-card-text
+              flat
+            ></v-select></v-flex></v-layout
+      ></v-card-text>
+      <v-card-actions class="mt-n10 pa-0 justify-end">
+        <v-switch
+          v-model="textfield.required"
+          class="mr-3 font-weight-medium"
+          inset
+          :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
+          :color="$vuetify.theme.dark ? 'black' : 'white'"
+          :label="'Required'"
+        ></v-switch></v-card-actions
     ></v-card>
     <v-layout justify-end class="mr-5">
       <v-btn
