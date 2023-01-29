@@ -35,6 +35,9 @@ export default {
         title: "",
         type: "Number",
         required: false,
+        outlined: false,
+        dense: false,
+        max: 0,
       });
     },
   },
