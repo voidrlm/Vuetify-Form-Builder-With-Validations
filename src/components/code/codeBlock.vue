@@ -1,12 +1,11 @@
 <template>
   <v-card-text>
-    <v-layout justify-end class="mr-5">
+    <v-layout justify-end class="mr-1 mt-3 mb-3">
       <v-btn
         elevation="0"
         rounded
         color="accent"
         @click="copyCode()"
-        class="mr-2"
         :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
       >
         <v-icon size="25px" class="mr-2">mdi-clipboard-outline</v-icon>Copy Code
