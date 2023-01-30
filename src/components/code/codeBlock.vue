@@ -12,25 +12,24 @@
       </v-btn>
     </v-layout>
 
-    <v-textarea
-      ref="code"
-      :background-color="
-        $vuetify.theme.dark ? 'grey darken-3' : 'grey lighten-3'
+    <pre
+      ref="Syntax"
+      class="CodeBackground"
+      style="
+        padding: 20px;
+        background-color: #282c33;
+        overflow: auto;
+        border-radius: 10px;
       "
-      flat
-      readonly
-      auto-grow
-      solo
-      :value="fullCode"
-      class="rounded-lg mx-1"
-    ></v-textarea>
+      >{{ fullCode }}</pre
+    >
+    \
   </v-card-text>
 </template>
 
 <script>
 import { template, script, methods, data } from "../../resources/baseCode";
 export default {
-  components: {},
   props: { code: Array },
   data: () => ({}),
   computed: {
