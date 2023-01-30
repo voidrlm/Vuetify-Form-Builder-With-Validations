@@ -39,12 +39,31 @@ export default {
         if (
           field.type == "E-Mail" ||
           field.type == "Date" ||
-          field.type == "Number"
+          field.type == "Number" ||
+          field.type == "Password"
         ) {
           field.max = 0;
         }
+        //CODE GENERATION
         let openTextField = "\n        <v-text-field";
         let label = "\n        label=" + "'" + field.title + "'";
+        let hint =
+          field.type === "Password"
+            ? "\n        hint=" + "At least 8 characters"
+            : "";
+        let appendicon =
+          field.type === "Password"
+            ? "\n        :append-icon= showPassOnField" +
+              (index + 1) +
+              " ? 'mdi-eye' : 'mdi-eye-off'"
+            : "";
+        let type =
+          field.type === "Password"
+            ? "\n        :type= showPassOnField" +
+              (index + 1) +
+              " ? 'text' : 'password'"
+            : "";
+
         let denseProp = field.dense
           ? "\n        :dense=" + "'" + field.dense + "'"
           : "";
@@ -52,17 +71,30 @@ export default {
           ? "\n        :outlined=" + "'" + field.outlined + "'"
           : "";
         let value = "\n        v-model=" + "'" + "field_" + (index + 1) + "'";
-        let closeTextField = "\n        ></v-text-field>";
         let counter = field.max
           ? "\n        :counter=" + "'" + field.max + "'"
           : "";
+        let click =
+          field.type === "Password"
+            ? "@click:append=showPassOnField " +
+              (index + 1) +
+              " = !showPassOnField " +
+              (index + 1) +
+              ""
+            : "";
+        let closeTextField = "\n        ></v-text-field>";
+        //COMBINE ALL
         let textField =
           openTextField +
           label +
+          hint +
+          appendicon +
+          type +
           denseProp +
           outlinedProp +
           value +
           counter +
+          click +
           closeTextField;
         return textField;
       });
@@ -72,6 +104,9 @@ export default {
       const emailFieldFound = this.code.some(
         (field) => field.type === "E-Mail"
       );
+      const passwordFieldFound = this.code.some(
+        (field) => field.type === "Password"
+      );
 
       let emailRules = emailFieldFound
         ? "\n      emailRules: [" +
@@ -80,11 +115,23 @@ export default {
           // eslint-disable-next-line no-useless-escape
           "\..+/.test(v) || 'E-mail must be valid',      \n       ],"
         : "";
+      let passwordRules = passwordFieldFound
+        ? "\n      passwordRules: [(v) => !!v || " +
+          "'Password is required.'" +
+          ", (v) => (v && v.length >= 8) || 'Minimum 8 characters,' ],"
+        : "";
       let code = this.code.map(function (field, index) {
-        if (field.type === "E-Mail") {
-          console.log(1);
-        }
-        let data = "\n      field_" + (index + 1) + " : null," + emailRules;
+        let showPass =
+          field.type === "Password"
+            ? "\n      showPassOnField" + (index + 1) + " : false,"
+            : "";
+        let data =
+          "\n      field_" +
+          (index + 1) +
+          " : null," +
+          emailRules +
+          showPass +
+          passwordRules;
         return data;
       });
       return code;
