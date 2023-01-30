@@ -49,7 +49,8 @@
               :disabled="
                 textfield.type == 'E-Mail' ||
                 textfield.type == 'Date' ||
-                textfield.type == 'Number'
+                textfield.type == 'Number' ||
+                textfield.type == 'Password'
               "
               thumb-label
               v-model="textfield.max"
