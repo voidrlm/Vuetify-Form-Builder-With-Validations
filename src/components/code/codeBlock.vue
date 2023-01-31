@@ -120,35 +120,37 @@ export default {
       return code;
     },
     dataPart() {
+      const requiredFound = this.code.some((field) => field.required);
       const emailFieldFound = this.code.some(
         (field) => field.type === "E-Mail"
       );
       const passwordFieldFound = this.code.some(
         (field) => field.type === "Password"
       );
-
+      let requiredRules = requiredFound
+        ? "\n      requiredRules: [" +
+          "(v) => !!v || 'This field is required.'," +
+          "],"
+        : "";
       let emailRules = emailFieldFound
         ? "\n      emailRules: [" +
-          "\n       v => !!v || 'E-mail is required'," +
-          "\n       v => /.+@.+" +
+          "v => /.+@.+" +
           // eslint-disable-next-line no-useless-escape
-          "\..+/.test(v) || 'E-mail must be valid',      \n       ],"
+          "\..+/.test(v) || 'E-mail must be valid',],"
         : "";
       let passwordRules = passwordFieldFound
-        ? "\n      passwordRules: [(v) => !!v || " +
-          "'Password is required.'" +
-          ", (v) => (v && v.length >= 8) || 'Minimum 8 characters,' ],"
+        ? "\n      passwordRules: [(v) => (v && v.length >= 8) || 'Minimum 8 characters,' ],"
         : "";
       let code = this.code.map(function (field, index) {
         let showPass =
           field.type === "Password"
             ? "\n      showPassOnField" + (index + 1) + " : false,"
             : "";
-        let data = "\n      field_" + (index + 1) + " : null," + showPass;
+        let data = "\n      field_" + (index + 1) + " : ''," + showPass;
         return data;
       });
       console.log(code);
-      return code + passwordRules + emailRules;
+      return code + passwordRules + emailRules + requiredRules;
     },
     fullCode() {
       return (
