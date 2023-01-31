@@ -23,7 +23,6 @@
       "
       >{{ fullCode }}</pre
     >
-    \
   </v-card-text>
 </template>
 
@@ -124,16 +123,11 @@ export default {
           field.type === "Password"
             ? "\n      showPassOnField" + (index + 1) + " : false,"
             : "";
-        let data =
-          "\n      field_" +
-          (index + 1) +
-          " : null," +
-          emailRules +
-          showPass +
-          passwordRules;
+        let data = "\n      field_" + (index + 1) + " : null," + showPass;
         return data;
       });
-      return code;
+      console.log(code);
+      return code + passwordRules + emailRules;
     },
     fullCode() {
       return (
