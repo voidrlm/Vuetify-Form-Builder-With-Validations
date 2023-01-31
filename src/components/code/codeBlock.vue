@@ -43,6 +43,26 @@ export default {
           field.max = 0;
         }
         //CODE GENERATION
+        let required = field.required ? "required" + "," : "";
+        field.type == "E-Mail"
+          ? "emailRules"
+          : field.type == "Password"
+          ? "passwordRules"
+          : field.type == "Number"
+          ? "numberRules"
+          : "";
+        let ruleType =
+          field.type == "E-Mail"
+            ? "emailRules"
+            : field.type == "Password"
+            ? "passwordRules"
+            : field.type == "Number"
+            ? "numberRules"
+            : "";
+        let rule =
+          field.type !== "Text"
+            ? "\n        :rules=" + "[" + required + ruleType + "]"
+            : "";
         let openTextField = "\n        <v-text-field";
         let label = "\n        label=" + "'" + field.title + "'";
         let hint =
@@ -80,7 +100,7 @@ export default {
               (index + 1) +
               ""
             : "";
-        let closeTextField = "\n        ></v-text-field>";
+        let closeTextField = "\n        >\n        </v-text-field>";
         //COMBINE ALL
         let textField =
           openTextField +
@@ -93,6 +113,7 @@ export default {
           value +
           counter +
           click +
+          rule +
           closeTextField;
         return textField;
       });
