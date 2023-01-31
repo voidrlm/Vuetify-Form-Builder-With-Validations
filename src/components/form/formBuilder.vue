@@ -7,7 +7,7 @@
       :key="index"
     >
       <v-card-text
-        ><v-layout row wrap>
+        ><v-layout row wrap class="mb-n5">
           <v-flex xs8 sm8 md8
             ><v-text-field
               rounded
@@ -26,49 +26,48 @@
               item-text="title"
               class="ma-2"
               flat
-            ></v-select></v-flex></v-layout
-      ></v-card-text>
-      <v-card-actions class="mt-n10 pa-0">
-        <v-layout row wrap align-center justify-center>
-          <v-flex xs4 sm4 md4 lg4 xl4>
-            <v-layout row wrap>
-              <v-checkbox
-                v-model="textfield.outlined"
-                label="Outlined"
-                class="mr-5"
-                color="accent darken-2"
-              ></v-checkbox>
-              <v-checkbox
-                v-model="textfield.dense"
-                label="Dense"
-                color="accent darken-2"
-              ></v-checkbox></v-layout
-          ></v-flex>
-          <v-flex xs4 sm4 md4 lg4 xl4>
-            <v-slider
-              :disabled="
-                textfield.type == 'E-Mail' ||
-                textfield.type == 'Date' ||
-                textfield.type == 'Number' ||
-                textfield.type == 'Password'
-              "
-              thumb-label
-              v-model="textfield.max"
-              class="mt-5 ml-n4"
-              color="accent darken-2"
-              label="Max characters"
-            >
-            </v-slider
-          ></v-flex>
-          <v-flex xs4 sm4 md2 lg2 xl2>
-            <v-switch
-              v-model="textfield.required"
-              class="font-weight-medium"
-              inset
-              :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
-              :color="$vuetify.theme.dark ? 'black' : 'white'"
-              :label="'Required'"
-            ></v-switch></v-flex></v-layout></v-card-actions
+            ></v-select></v-flex
+        ></v-layout>
+
+        <v-layout row class="mt-n8">
+          <v-checkbox
+            v-model="textfield.outlined"
+            label="Outlined"
+            class="mx-3"
+            color="accent darken-2"
+          ></v-checkbox>
+
+          <v-checkbox
+            v-model="textfield.dense"
+            label="Dense"
+            color="accent darken-2"
+          ></v-checkbox>
+          <v-spacer />
+
+          <v-switch
+            v-model="textfield.required"
+            class="font-weight-medium mr-5"
+            inset
+            :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
+            :color="$vuetify.theme.dark ? 'black' : 'white'"
+            :label="'Required'"
+          ></v-switch
+        ></v-layout>
+        <v-layout row class="mx-1">
+          <v-slider
+            :disabled="
+              textfield.type == 'E-Mail' ||
+              textfield.type == 'Date' ||
+              textfield.type == 'Number' ||
+              textfield.type == 'Password'
+            "
+            thumb-label
+            v-model="textfield.max"
+            class=""
+            color="accent darken-2"
+            label="Max characters"
+          >
+          </v-slider></v-layout></v-card-text
     ></v-card>
     <v-layout justify-end class="mr-5">
       <v-btn
