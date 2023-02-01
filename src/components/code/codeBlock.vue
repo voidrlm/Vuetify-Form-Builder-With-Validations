@@ -171,15 +171,25 @@ export default {
           "\..+/.test(v) || 'E-mail must be valid',"
         : "";
       let passwordRules = passwordFieldFound
-        ? "\n      passwordRules: (v) => (v && v.length >= 8) || 'Minimum 8 characters,' ,"
+        ? "\n      passwordRules: (v) => (v && v.length >= 8) || 'Minimum 8 characters.'" +
+          comma
         : "";
       let code = this.code.map(function (field, index) {
         let showPass =
           field.type === "Password"
-            ? "\n      showPassOnField" + (index + 1) + " : false"
+            ? comma +
+              "\n      showPassOnField" +
+              (index + 1) +
+              " : false" +
+              comma
             : "";
         let data =
-          "\n      field_" + (index + 1) + " : ''" + comma + showPass + comma;
+          "\n      field_" +
+          (index + 1) +
+          " : " +
+          doubleQuotes +
+          doubleQuotes +
+          showPass;
         return data;
       });
       return code + passwordRules + emailRules + requiredRules + numberRules;
