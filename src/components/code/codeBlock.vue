@@ -44,13 +44,6 @@ export default {
         }
         //CODE GENERATION
         let required = field.required ? "required" + "," : "";
-        field.type == "E-Mail"
-          ? "emailRules"
-          : field.type == "Password"
-          ? "passwordRules"
-          : field.type == "Number"
-          ? "numberRules"
-          : "";
         let ruleType =
           field.type == "E-Mail"
             ? "emailRules"
@@ -88,7 +81,15 @@ export default {
         let outlinedProp = field.outlined
           ? "\n        :outlined=" + "'" + field.outlined + "'"
           : "";
-        let value = "\n        v-model=" + "'" + "field_" + (index + 1) + "'";
+        let numberVModel = field.type === "Number" ? ".Number" : "";
+        let value =
+          "\n        v-model" +
+          numberVModel +
+          "'=" +
+          "'" +
+          "field_" +
+          (index + 1) +
+          "'";
         let counter = field.max
           ? "\n        :counter=" + "'" + field.max + "'"
           : "";
@@ -127,6 +128,15 @@ export default {
       const passwordFieldFound = this.code.some(
         (field) => field.type === "Password"
       );
+      const numberFieldFound = this.code.some(
+        (field) => field.type === "Number"
+      );
+      let numberRules = numberFieldFound
+        ? "\n      numberRules: " +
+          "(value) =>Number.isInteger(Number(value)) ||" +
+          "'Please enter a valid number.'" +
+          ","
+        : "";
       let requiredRules = requiredFound
         ? "\n      requiredRules: " +
           "(v) => !!v || 'This field is required.'" +
@@ -150,7 +160,7 @@ export default {
         return data;
       });
       console.log(code);
-      return code + passwordRules + emailRules + requiredRules;
+      return code + passwordRules + emailRules + requiredRules + numberRules;
     },
     fullCode() {
       return (
