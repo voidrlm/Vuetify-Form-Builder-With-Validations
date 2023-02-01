@@ -128,18 +128,18 @@ export default {
         (field) => field.type === "Password"
       );
       let requiredRules = requiredFound
-        ? "\n      requiredRules: [" +
-          "(v) => !!v || 'This field is required.'," +
-          "],"
+        ? "\n      requiredRules: " +
+          "(v) => !!v || 'This field is required.'" +
+          ","
         : "";
       let emailRules = emailFieldFound
-        ? "\n      emailRules: [" +
+        ? "\n      emailRules: " +
           "v => /.+@.+" +
           // eslint-disable-next-line no-useless-escape
-          "\..+/.test(v) || 'E-mail must be valid',],"
+          "\..+/.test(v) || 'E-mail must be valid',"
         : "";
       let passwordRules = passwordFieldFound
-        ? "\n      passwordRules: [(v) => (v && v.length >= 8) || 'Minimum 8 characters,' ],"
+        ? "\n      passwordRules: (v) => (v && v.length >= 8) || 'Minimum 8 characters,' ,"
         : "";
       let code = this.code.map(function (field, index) {
         let showPass =
