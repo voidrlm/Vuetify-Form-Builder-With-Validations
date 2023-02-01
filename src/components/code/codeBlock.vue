@@ -28,6 +28,7 @@
 
 <script>
 import { template, script, methods, data } from "../../resources/baseCode";
+import { doubleQuotes, comma } from "@/resources/textHelpers";
 export default {
   props: { code: Array },
   data: () => ({}),
@@ -43,7 +44,7 @@ export default {
           field.max = 0;
         }
         //CODE GENERATION
-        let required = field.required ? "required" + "," : "";
+        let required = field.required ? "required" + comma : "";
         let ruleType =
           field.type == "E-Mail"
             ? "emailRules"
@@ -54,52 +55,73 @@ export default {
             : "";
         let rule =
           field.type !== "Text"
-            ? "\n        :rules=" + "[" + required + ruleType + "]"
+            ? "\n        :rules=" +
+              doubleQuotes +
+              "[" +
+              required +
+              ruleType +
+              "]" +
+              doubleQuotes
             : "";
         let openTextField = "\n        <v-text-field";
-        let label = "\n        label=" + "'" + field.title + "'";
+        let label =
+          "\n        label=" + doubleQuotes + field.title + doubleQuotes;
         let hint =
           field.type === "Password"
-            ? "\n        hint=" + "At least 8 characters"
+            ? "\n        hint=" +
+              doubleQuotes +
+              "At least 8 characters" +
+              doubleQuotes
             : "";
         let appendicon =
           field.type === "Password"
-            ? "\n        :append-icon= showPassOnField" +
+            ? "\n        :append-icon=" +
+              doubleQuotes +
+              "showPassOnField" +
               (index + 1) +
-              " ? 'mdi-eye' : 'mdi-eye-off'"
+              " ? 'mdi-eye' : 'mdi-eye-off'" +
+              doubleQuotes
             : "";
         let type =
           field.type === "Password"
-            ? "\n        :type= showPassOnField" +
+            ? "\n        :type=" +
+              doubleQuotes +
+              "showPassOnField" +
               (index + 1) +
-              " ? 'text' : 'password'"
+              " ? 'text' : 'password'" +
+              doubleQuotes
             : "";
 
         let denseProp = field.dense
-          ? "\n        :dense=" + "'" + field.dense + "'"
+          ? "\n        :dense=" + doubleQuotes + field.dense + doubleQuotes
           : "";
         let outlinedProp = field.outlined
-          ? "\n        :outlined=" + "'" + field.outlined + "'"
+          ? "\n        :outlined=" +
+            doubleQuotes +
+            field.outlined +
+            doubleQuotes
           : "";
         let numberVModel = field.type === "Number" ? ".Number" : "";
         let value =
           "\n        v-model" +
           numberVModel +
-          "'=" +
-          "'" +
+          "=" +
+          doubleQuotes +
           "field_" +
           (index + 1) +
-          "'";
+          doubleQuotes;
         let counter = field.max
-          ? "\n        :counter=" + "'" + field.max + "'"
+          ? "\n        :counter=" + doubleQuotes + field.max + doubleQuotes
           : "";
         let click =
           field.type === "Password"
-            ? "@click:append=showPassOnField " +
+            ? "\n        @click:append=" +
+              doubleQuotes +
+              "showPassOnField" +
               (index + 1) +
-              " = !showPassOnField " +
+              " = !showPassOnField" +
               (index + 1) +
-              ""
+              doubleQuotes
             : "";
         let closeTextField = "\n        >\n        </v-text-field>";
         //COMBINE ALL
@@ -135,12 +157,12 @@ export default {
         ? "\n      numberRules: " +
           "(value) =>Number.isInteger(Number(value)) ||" +
           "'Please enter a valid number.'" +
-          ","
+          comma
         : "";
       let requiredRules = requiredFound
         ? "\n      requiredRules: " +
           "(v) => !!v || 'This field is required.'" +
-          ","
+          comma
         : "";
       let emailRules = emailFieldFound
         ? "\n      emailRules: " +
@@ -154,12 +176,12 @@ export default {
       let code = this.code.map(function (field, index) {
         let showPass =
           field.type === "Password"
-            ? "\n      showPassOnField" + (index + 1) + " : false,"
+            ? "\n      showPassOnField" + (index + 1) + " : false"
             : "";
-        let data = "\n      field_" + (index + 1) + " : ''," + showPass;
+        let data =
+          "\n      field_" + (index + 1) + " : ''" + comma + showPass + comma;
         return data;
       });
-      console.log(code);
       return code + passwordRules + emailRules + requiredRules + numberRules;
     },
     fullCode() {
