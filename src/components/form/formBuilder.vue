@@ -72,9 +72,28 @@
       <v-card-actions class="mt-n5">
         <v-spacer></v-spacer>
 
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              class="mr-2"
+              @click="textfield.rounded = !textfield.rounded"
+            >
+              <v-icon
+                :class="textfield.rounded ? '' : 'grey--text'"
+                v-bind="attrs"
+                v-on="on"
+              >
+                mdi-rounded-corner
+              </v-icon></v-btn
+            >
+          </template>
+          <span>Rounded Corners</span>
+        </v-tooltip>
+
         <v-btn
           icon
-          class="red--text"
+          class="red--text mr-2"
           @click.stop="$emit('removeField', index)"
           :disabled="index === 0"
         >

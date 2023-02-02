@@ -37,6 +37,7 @@ export default {
         required: false,
         outlined: false,
         dense: false,
+        rounded: false,
         max: 0,
       });
     },
