@@ -67,8 +67,21 @@
             color="accent darken-2"
             label="Max characters"
           >
-          </v-slider></v-layout></v-card-text
-    ></v-card>
+          </v-slider></v-layout
+      ></v-card-text>
+      <v-card-actions class="mt-n5">
+        <v-spacer></v-spacer>
+
+        <v-btn
+          icon
+          class="red--text"
+          @click.stop="$emit('removeField', index)"
+          :disabled="index === 0"
+        >
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </v-card-actions></v-card
+    >
     <v-layout justify-end class="mr-5">
       <v-btn
         elevation="0"

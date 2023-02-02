@@ -28,9 +28,9 @@ export default {
   mounted() {
     this.addTextField();
   },
+
   methods: {
     addTextField: function () {
-      console.log(1);
       this.formData.push({
         title: "",
         type: "Number",
@@ -39,6 +39,9 @@ export default {
         dense: false,
         max: 0,
       });
+    },
+    removeTextField: function (index) {
+      this.formData.splice(index, 1);
     },
   },
 };
