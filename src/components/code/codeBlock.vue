@@ -44,6 +44,11 @@ export default {
           field.max = 0;
         }
         //CODE GENERATION
+        var label =
+          "\n        label=" + doubleQuotes + field.title + doubleQuotes;
+        var textFieldClass = field.rounded
+          ? "\n        class=" + doubleQuotes + "rounded-xl" + doubleQuotes
+          : "";
         if (field.type === "Date") {
           var dateComponent =
             nextLine +
@@ -105,19 +110,24 @@ export default {
             space +
             "<template v-slot:activator=" +
             "{ on, attrs }>" +
-            "<v-text-field v-model=" +
-            doubleQuotes +
-            "date" +
-            doubleQuotes +
             nextLine +
             space +
             space +
             space +
             space +
-            "label=" +
+            "<v-text-field" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "v-model=" +
             doubleQuotes +
-            field.title +
+            "date" +
+            (index + 1) +
             doubleQuotes +
+            label +
+            textFieldClass +
             nextLine +
             space +
             space +
@@ -255,8 +265,7 @@ export default {
                 doubleQuotes
               : "";
           var openTextField = "\n        <v-text-field";
-          var label =
-            "\n        label=" + doubleQuotes + field.title + doubleQuotes;
+
           var hint =
             field.type === "Password"
               ? "\n        hint=" +
@@ -320,6 +329,7 @@ export default {
         let textField =
           field.type !== "Date"
             ? openTextField +
+              textFieldClass +
               label +
               hint +
               appendicon +
