@@ -28,7 +28,7 @@
 
 <script>
 import { template, script, methods, data } from "../../resources/baseCode";
-import { doubleQuotes, comma } from "@/resources/textHelpers";
+import { doubleQuotes, comma, nextLine, space } from "@/resources/textHelpers";
 export default {
   props: { code: Array },
   data: () => ({}),
@@ -44,100 +44,294 @@ export default {
           field.max = 0;
         }
         //CODE GENERATION
-        let required = field.required ? "required" + comma : "";
-        let ruleType =
-          field.type == "E-Mail"
-            ? "emailRules"
-            : field.type == "Password"
-            ? "passwordRules"
-            : field.type == "Number"
-            ? "numberRules"
-            : "";
-        let rule =
-          field.type !== "Text"
-            ? "\n        :rules=" +
-              doubleQuotes +
-              "[" +
-              required +
-              ruleType +
-              "]" +
-              doubleQuotes
-            : "";
-        let openTextField = "\n        <v-text-field";
-        let label =
-          "\n        label=" + doubleQuotes + field.title + doubleQuotes;
-        let hint =
-          field.type === "Password"
-            ? "\n        hint=" +
-              doubleQuotes +
-              "At least 8 characters" +
-              doubleQuotes
-            : "";
-        let appendicon =
-          field.type === "Password"
-            ? "\n        :append-icon=" +
-              doubleQuotes +
-              "showPassOnField" +
-              (index + 1) +
-              " ? 'mdi-eye' : 'mdi-eye-off'" +
-              doubleQuotes
-            : "";
-        let type =
-          field.type === "Password"
-            ? "\n        :type=" +
-              doubleQuotes +
-              "showPassOnField" +
-              (index + 1) +
-              " ? 'text' : 'password'" +
-              doubleQuotes
-            : "";
-
-        let denseProp = field.dense
-          ? "\n        :dense=" + doubleQuotes + field.dense + doubleQuotes
-          : "";
-        let outlinedProp = field.outlined
-          ? "\n        :outlined=" +
+        if (field.type === "Date") {
+          var dateComponent =
+            nextLine +
+            space +
+            space +
+            space +
+            "<v-menu ref=" +
             doubleQuotes +
-            field.outlined +
-            doubleQuotes
-          : "";
-        let numberVModel = field.type === "Number" ? ".Number" : "";
-        let value =
-          "\n        v-model" +
-          numberVModel +
-          "=" +
-          doubleQuotes +
-          "field" +
-          (index + 1) +
-          doubleQuotes;
-        let counter = field.max
-          ? "\n        :counter=" + doubleQuotes + field.max + doubleQuotes
-          : "";
-        let click =
-          field.type === "Password"
-            ? "\n        @click:append=" +
+            "menu" +
+            (index + 1) +
+            doubleQuotes +
+            "v-model=" +
+            doubleQuotes +
+            "menu" +
+            (index + 1) +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            ":close-on-content-click=" +
+            doubleQuotes +
+            "false" +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            ":return-value.sync=" +
+            doubleQuotes +
+            "date" +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            "transition=" +
+            doubleQuotes +
+            "scale-transition" +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            "offset-y" +
+            nextLine +
+            space +
+            space +
+            space +
+            "min-width=" +
+            doubleQuotes +
+            "auto" +
+            doubleQuotes +
+            ">" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "<template v-slot:activator=" +
+            "{ on, attrs }>" +
+            "<v-text-field v-model=" +
+            doubleQuotes +
+            "date" +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "label=" +
+            doubleQuotes +
+            field.title +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "prepend-icon=" +
+            doubleQuotes +
+            "mdi-calendar" +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "readonly" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "v-bind=" +
+            doubleQuotes +
+            "attrs" +
+            doubleQuotes +
+            "v-on=" +
+            doubleQuotes +
+            "on" +
+            doubleQuotes +
+            ">" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "</v-text-field>" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "</template>" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "<v-date-picker  v-model=" +
+            doubleQuotes +
+            "date" +
+            doubleQuotes +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            " no-title " +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "scrollable>" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "<v-spacer/>" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "<v-btn text color=" +
+            doubleQuotes +
+            "primary" +
+            doubleQuotes +
+            space +
+            "@click=" +
+            doubleQuotes +
+            "menu" +
+            (index + 1) +
+            doubleQuotes +
+            "= false" +
+            ">Cancel </v-btn> " +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "<v-btn text color=" +
+            doubleQuotes +
+            "primary" +
+            doubleQuotes +
+            space +
+            "@click=" +
+            doubleQuotes +
+            "$refs." +
+            "menu" +
+            (index + 1) +
+            ".save(date)" +
+            ">OK</v-btn>" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "</v-date-picker>" +
+            nextLine +
+            space +
+            space +
+            space +
+            space +
+            "</v-menu>";
+        }
+        //End of date component
+        if (field.type !== "Date") {
+          let required = field.required ? "required" + comma : "";
+          let ruleType =
+            field.type == "E-Mail"
+              ? "emailRules"
+              : field.type == "Password"
+              ? "passwordRules"
+              : field.type == "Number"
+              ? "numberRules"
+              : "";
+          var rule =
+            field.type !== "Text"
+              ? "\n        :rules=" +
+                doubleQuotes +
+                "[" +
+                required +
+                ruleType +
+                "]" +
+                doubleQuotes
+              : "";
+          var openTextField = "\n        <v-text-field";
+          var label =
+            "\n        label=" + doubleQuotes + field.title + doubleQuotes;
+          var hint =
+            field.type === "Password"
+              ? "\n        hint=" +
+                doubleQuotes +
+                "At least 8 characters" +
+                doubleQuotes
+              : "";
+          var appendicon =
+            field.type === "Password"
+              ? "\n        :append-icon=" +
+                doubleQuotes +
+                "showPassOnField" +
+                (index + 1) +
+                " ? 'mdi-eye' : 'mdi-eye-off'" +
+                doubleQuotes
+              : "";
+          var type =
+            field.type === "Password"
+              ? "\n        :type=" +
+                doubleQuotes +
+                "showPassOnField" +
+                (index + 1) +
+                " ? 'text' : 'password'" +
+                doubleQuotes
+              : "";
+
+          var denseProp = field.dense
+            ? "\n        :dense=" + doubleQuotes + field.dense + doubleQuotes
+            : "";
+          var outlinedProp = field.outlined
+            ? "\n        :outlined=" +
               doubleQuotes +
-              "showPassOnField" +
-              (index + 1) +
-              " = !showPassOnField" +
-              (index + 1) +
+              field.outlined +
               doubleQuotes
             : "";
-        let closeTextField = "\n        >\n        </v-text-field>";
+          var numberVModel = field.type === "Number" ? ".Number" : "";
+          var value =
+            "\n        v-model" +
+            numberVModel +
+            "=" +
+            doubleQuotes +
+            "field" +
+            (index + 1) +
+            doubleQuotes;
+          var counter = field.max
+            ? "\n        :counter=" + doubleQuotes + field.max + doubleQuotes
+            : "";
+          var click =
+            field.type === "Password"
+              ? "\n        @click:append=" +
+                doubleQuotes +
+                "showPassOnField" +
+                (index + 1) +
+                " = !showPassOnField" +
+                (index + 1) +
+                doubleQuotes
+              : "";
+          var closeTextField = "\n        >\n        </v-text-field>";
+        }
         //COMBINE ALL
         let textField =
-          openTextField +
-          label +
-          hint +
-          appendicon +
-          type +
-          denseProp +
-          outlinedProp +
-          value +
-          counter +
-          click +
-          rule +
-          closeTextField;
+          field.type !== "Date"
+            ? openTextField +
+              label +
+              hint +
+              appendicon +
+              type +
+              denseProp +
+              outlinedProp +
+              value +
+              counter +
+              click +
+              rule +
+              closeTextField
+            : dateComponent;
         return textField;
       });
       return code.join("");
@@ -153,6 +347,7 @@ export default {
       const numberFieldFound = this.code.some(
         (field) => field.type === "Number"
       );
+
       let numberRules = numberFieldFound
         ? "\n      numberRules: " +
           "(value) =>Number.isInteger(Number(value)) ||" +
