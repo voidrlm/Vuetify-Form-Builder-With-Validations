@@ -90,10 +90,10 @@
           </template>
           <span>Rounded Corners</span>
         </v-tooltip>
-
+        <v-divider vertical></v-divider>
         <v-btn
           icon
-          class="red--text mr-2"
+          class="red--text ml-2 mr-2"
           @click.stop="$emit('removeField', index)"
           :disabled="index === 0"
         >
