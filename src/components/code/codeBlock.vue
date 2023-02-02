@@ -107,7 +107,7 @@ export default {
           numberVModel +
           "=" +
           doubleQuotes +
-          "field_" +
+          "field" +
           (index + 1) +
           doubleQuotes;
         let counter = field.max
@@ -140,7 +140,7 @@ export default {
           closeTextField;
         return textField;
       });
-      return code;
+      return code.join("");
     },
     dataPart() {
       const requiredFound = this.code.some((field) => field.required);
@@ -174,25 +174,25 @@ export default {
         ? "\n      passwordRules: (v) => (v && v.length >= 8) || 'Minimum 8 characters.'" +
           comma
         : "";
+
       let code = this.code.map(function (field, index) {
         let showPass =
           field.type === "Password"
-            ? comma +
-              "\n      showPassOnField" +
-              (index + 1) +
-              " : false" +
-              comma
+            ? "\n      showPassOnField" + (index + 1) + " : false" + comma
             : "";
-        let data =
-          "\n      field_" +
+        let fieldValue =
+          "\n      field" +
           (index + 1) +
           " : " +
           doubleQuotes +
           doubleQuotes +
-          showPass;
+          comma;
+        let data = fieldValue + showPass;
         return data;
       });
-      return code + passwordRules + emailRules + requiredRules + numberRules;
+      return (
+        code.join("") + passwordRules + emailRules + requiredRules + numberRules
+      );
     },
     fullCode() {
       return (
