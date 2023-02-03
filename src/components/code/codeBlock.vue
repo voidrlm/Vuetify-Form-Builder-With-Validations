@@ -50,11 +50,46 @@ export default {
           field.max = 0;
         }
         //CODE GENERATION
+        var spacingForTextFieldProp =
+          field.type === "Date"
+            ? doublespace + doublespace + doublespace
+            : doublespace + doublespace;
+        //label
         var label =
-          "\n        label=" + doubleQuotes + field.title + doubleQuotes;
+          nextLine +
+          spacingForTextFieldProp +
+          "label=" +
+          doubleQuotes +
+          field.title +
+          doubleQuotes;
+        //rouned
         var textFieldClass = field.rounded
-          ? "\n        class=" + doubleQuotes + "rounded-xl" + doubleQuotes
+          ? nextLine +
+            spacingForTextFieldProp +
+            "class=" +
+            doubleQuotes +
+            "rounded-xl" +
+            doubleQuotes
           : "";
+        //dense
+        var denseProp = field.dense
+          ? nextLine +
+            spacingForTextFieldProp +
+            ":dense=" +
+            doubleQuotes +
+            field.dense +
+            doubleQuotes
+          : "";
+        //outlined
+        var outlinedProp = field.outlined
+          ? nextLine +
+            spacingForTextFieldProp +
+            ":outlined=" +
+            doubleQuotes +
+            field.outlined +
+            doubleQuotes
+          : "";
+        //Date template
         if (field.type === "Date") {
           var dateComponent =
             nextLine +
@@ -136,12 +171,10 @@ export default {
             "date" +
             (index + 1) +
             doubleQuotes +
-            nextLine +
-            doublespace +
-            doublespace +
-            doublespace +
-            "label" +
+            label +
             textFieldClass +
+            denseProp +
+            outlinedProp +
             nextLine +
             doublespace +
             doublespace +
@@ -285,15 +318,6 @@ export default {
                 doubleQuotes
               : "";
 
-          var denseProp = field.dense
-            ? "\n        :dense=" + doubleQuotes + field.dense + doubleQuotes
-            : "";
-          var outlinedProp = field.outlined
-            ? "\n        :outlined=" +
-              doubleQuotes +
-              field.outlined +
-              doubleQuotes
-            : "";
           var numberVModel = field.type === "Number" ? ".Number" : "";
           var value =
             "\n        v-model" +
