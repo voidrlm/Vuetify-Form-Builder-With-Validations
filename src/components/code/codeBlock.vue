@@ -11,18 +11,14 @@
         <v-icon size="25px" class="mr-2">mdi-clipboard-outline</v-icon>Copy Code
       </v-btn>
     </v-layout>
-
-    <pre
-      ref="Syntax"
-      class="CodeBackground"
-      style="
-        padding: 20px;
-        background-color: #282c33;
-        overflow: auto;
-        border-radius: 10px;
-      "
-      >{{ fullCode }}</pre
-    >
+    <v-card class="rounded-xl secondary">
+      <pre
+        ref="Syntax"
+        class="CodeBackground"
+        style="padding: 20px; overflow: auto; border-radius: 10px"
+        >{{ fullCode }}</pre
+      >
+    </v-card>
   </v-card-text>
 </template>
 
