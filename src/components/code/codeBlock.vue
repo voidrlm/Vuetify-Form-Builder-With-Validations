@@ -66,7 +66,7 @@ export default {
             doublespace +
             "ref=" +
             doubleQuotes +
-            "menu" +
+            "datePicker" +
             (index + 1) +
             doubleQuotes +
             nextLine +
@@ -90,6 +90,7 @@ export default {
             ":return-value.sync=" +
             doubleQuotes +
             "date" +
+            (index + 1) +
             doubleQuotes +
             nextLine +
             doublespace +
@@ -182,6 +183,7 @@ export default {
             "<v-date-picker v-model=" +
             doubleQuotes +
             "date" +
+            +(index + 1) +
             doubleQuotes +
             " no-title " +
             "scrollable>" +
@@ -205,7 +207,7 @@ export default {
             (index + 1) +
             "= false" +
             doubleQuotes +
-            ">Cancel </v-btn> " +
+            ">Cancel</v-btn> " +
             nextLine +
             doublespace +
             doublespace +
@@ -218,9 +220,11 @@ export default {
             "@click=" +
             doubleQuotes +
             "$refs." +
-            "menu" +
+            "datePicker" +
             (index + 1) +
-            ".save(date)" +
+            ".save(date" +
+            (index + 1) +
+            ")" +
             doubleQuotes +
             ">OK</v-btn>" +
             nextLine +
@@ -383,17 +387,16 @@ export default {
           field.type === "Password"
             ? "\n      showPassOnField" + (index + 1) + " : false" + comma
             : "";
-        let fieldValue =
-          nextLine + space + field.type === "Date"
-            ? "showDatePicker"
-            : nextLine +
-              space +
-              "field" +
+        let value =
+          field.type === "Date"
+            ? "date" + (index + 1) + " : " + doubleQuotes + doubleQuotes + comma
+            : "field" +
               (index + 1) +
               " : " +
               doubleQuotes +
               doubleQuotes +
               comma;
+        let fieldValue = nextLine + space + value;
         let data = fieldValue + showDatePicker + showPass;
         return data;
       });
