@@ -30,30 +30,6 @@
         ></v-layout>
 
         <v-layout row class="mt-n8">
-          <v-checkbox
-            v-model="textfield.outlined"
-            label="Outlined"
-            class="mx-3"
-            color="accent darken-2"
-          ></v-checkbox>
-
-          <v-checkbox
-            v-model="textfield.dense"
-            label="Dense"
-            color="accent darken-2"
-          ></v-checkbox>
-          <v-spacer />
-
-          <v-switch
-            v-model="textfield.required"
-            class="font-weight-medium mr-5"
-            inset
-            :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
-            :color="$vuetify.theme.dark ? 'black' : 'white'"
-            :label="'Required'"
-          ></v-switch
-        ></v-layout>
-        <v-layout row class="mx-1">
           <v-slider
             :disabled="
               textfield.type == 'E-Mail' ||
@@ -63,15 +39,60 @@
             "
             thumb-label
             v-model="textfield.max"
-            class=""
+            class="mt-4 mx-4"
             color="accent darken-2"
             label="Max characters"
           >
-          </v-slider></v-layout
-      ></v-card-text>
-      <v-card-actions class="mt-n5">
-        <v-spacer></v-spacer>
+          </v-slider>
 
+          <v-switch
+            v-model="textfield.required"
+            class="font-weight-medium mr-5"
+            inset
+            :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
+            :color="$vuetify.theme.dark ? 'black' : 'white'"
+            :label="'Required'"
+          ></v-switch></v-layout
+      ></v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              class="mr-2"
+              @click="textfield.dense = !textfield.dense"
+            >
+              <v-icon
+                :class="textfield.dense ? '' : 'grey--text'"
+                v-bind="attrs"
+                v-on="on"
+              >
+                mdi-image-size-select-small
+              </v-icon></v-btn
+            >
+          </template>
+          <span>Dense</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              class="mr-2"
+              @click="textfield.outlined = !textfield.outlined"
+            >
+              <v-icon
+                :class="textfield.outlined ? '' : 'grey--text'"
+                v-bind="attrs"
+                v-on="on"
+              >
+                mdi-card-outline
+              </v-icon></v-btn
+            >
+          </template>
+          <span>Outlined</span>
+        </v-tooltip>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
