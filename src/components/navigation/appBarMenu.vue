@@ -28,12 +28,6 @@
           <v-list-item-title>Voidrlm</v-list-item-title>
           <v-list-item-subtitle>Logged in</v-list-item-subtitle>
         </v-list-item-content>
-
-        <v-list-item-action>
-          <v-btn icon>
-            <v-icon>mdi-logout</v-icon>
-          </v-btn>
-        </v-list-item-action>
       </v-list-item>
     </v-list>
 
