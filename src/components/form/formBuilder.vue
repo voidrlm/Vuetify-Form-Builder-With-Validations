@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-      class="accent mb-5 pa-0 mx-5 rounded-lg"
+      class="accent mb-5 pa-0 mx-5 rounded-xl"
       elevation="0"
       v-for="(textfield, index) in form"
       :key="index"
@@ -40,7 +40,7 @@
             thumb-label
             v-model="textfield.max"
             class="mt-4 mx-4"
-            color="accent darken-2"
+            color="primary"
             label="Max characters"
           >
           </v-slider>
@@ -50,7 +50,9 @@
             class="font-weight-medium mr-5"
             inset
             :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
-            :color="$vuetify.theme.dark ? 'black' : 'white'"
+            :color="
+              $vuetify.theme.dark ? 'primary lighten-1' : 'primary darken-1'
+            "
             :label="'Required'"
           ></v-switch></v-layout
       ></v-card-text>
