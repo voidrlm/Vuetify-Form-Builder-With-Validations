@@ -13,9 +13,11 @@
         <v-card-title class="justify-center h5">Code</v-card-title
         ><code-block :code="formData" /></v-flex
     ></v-layout>
+    <footerComponent />
   </v-container>
 </template>
 <script>
+import footerComponent from "../components/navigation/footer.vue";
 import formBuilder from "../components/form/formBuilder.vue";
 import codeBlock from "@/components/code/codeBlock.vue";
 export default {
@@ -26,6 +28,7 @@ export default {
   components: {
     formBuilder,
     codeBlock,
+    footerComponent,
   },
   computed: {},
   mounted() {
