@@ -146,7 +146,7 @@ export default {
             doublespace +
             doublespace +
             doublespace +
-            "prepend-icon=" +
+            "prepend-inner-icon=" +
             doubleQuotes +
             "mdi-calendar" +
             doubleQuotes +
