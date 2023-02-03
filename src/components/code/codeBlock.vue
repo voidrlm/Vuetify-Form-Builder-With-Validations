@@ -50,10 +50,32 @@ export default {
           field.max = 0;
         }
         //CODE GENERATION
+        //COMMON THINGS FOR ALL TEXT FIELD
         var spacingForTextFieldProp =
           field.type === "Date"
             ? doublespace + doublespace + doublespace
             : doublespace + doublespace;
+        let required = field.required ? "required" + comma : "";
+        let ruleType =
+          field.type == "E-Mail"
+            ? "emailRules"
+            : field.type == "Password"
+            ? "passwordRules"
+            : field.type == "Number"
+            ? "numberRules"
+            : "";
+        var rule =
+          field.type !== "Text"
+            ? nextLine +
+              spacingForTextFieldProp +
+              ":rules=" +
+              doubleQuotes +
+              "[" +
+              required +
+              ruleType +
+              "]" +
+              doubleQuotes
+            : "";
         //label
         var label =
           nextLine +
@@ -89,6 +111,7 @@ export default {
             field.outlined +
             doubleQuotes
           : "";
+        //END OF COMMON THINGS FOR ALL TEXT FIELD
         //Date template
         if (field.type === "Date") {
           var dateComponent =
@@ -175,6 +198,7 @@ export default {
             textFieldClass +
             denseProp +
             outlinedProp +
+            rule +
             nextLine +
             doublespace +
             doublespace +
@@ -271,25 +295,6 @@ export default {
         }
         //End of date component
         if (field.type !== "Date") {
-          let required = field.required ? "required" + comma : "";
-          let ruleType =
-            field.type == "E-Mail"
-              ? "emailRules"
-              : field.type == "Password"
-              ? "passwordRules"
-              : field.type == "Number"
-              ? "numberRules"
-              : "";
-          var rule =
-            field.type !== "Text"
-              ? "\n        :rules=" +
-                doubleQuotes +
-                "[" +
-                required +
-                ruleType +
-                "]" +
-                doubleQuotes
-              : "";
           var openTextField = "\n        <v-text-field";
 
           var hint =
