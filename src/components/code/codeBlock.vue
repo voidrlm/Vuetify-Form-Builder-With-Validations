@@ -49,13 +49,16 @@ export default {
         ) {
           field.max = 0;
         }
+        if (field.type !== "Date") {
+          field.minCurrentDay = false;
+        }
         //CODE GENERATION
         //COMMON THINGS FOR ALL TEXT FIELD
         var spacingForTextFieldProp =
           field.type === "Date"
             ? doublespace + doublespace + doublespace
             : doublespace + doublespace;
-        let required = field.required ? "required" + comma : "";
+        let required = field.required ? "requiredRules" + comma : "";
         let ruleType =
           field.type == "E-Mail"
             ? "emailRules"
@@ -65,7 +68,7 @@ export default {
             ? "numberRules"
             : "";
         var rule =
-          field.type !== "Text"
+          field.required || ruleType !== ""
             ? nextLine +
               spacingForTextFieldProp +
               ":rules=" +
@@ -114,6 +117,9 @@ export default {
         //END OF COMMON THINGS FOR ALL TEXT FIELD
         //Date template
         if (field.type === "Date") {
+          let minValue = field.minCurrentDay
+            ? " :min=" + doubleQuotes + "currentDay" + doubleQuotes
+            : "";
           var dateComponent =
             nextLine +
             doublespace +
@@ -243,7 +249,9 @@ export default {
             +(index + 1) +
             doubleQuotes +
             " no-title " +
-            "scrollable>" +
+            "scrollable" +
+            minValue +
+            ">" +
             nextLine +
             doublespace +
             doublespace +
@@ -332,8 +340,9 @@ export default {
             "field" +
             (index + 1) +
             doubleQuotes;
-          var counter = field.max
-            ? "\n        :counter=" + doubleQuotes + field.max + doubleQuotes
+          var counter = field.max ? "\n        counter" : "";
+          var maxLength = field.max
+            ? "\n        :maxlength=" + doubleQuotes + field.max + doubleQuotes
             : "";
           var click =
             field.type === "Password"
@@ -360,6 +369,7 @@ export default {
               outlinedProp +
               value +
               counter +
+              maxLength +
               click +
               rule +
               closeTextField
@@ -379,7 +389,12 @@ export default {
       const numberFieldFound = this.code.some(
         (field) => field.type === "Number"
       );
-
+      const currentDayValidationFound = this.code.some(
+        (field) => field.minCurrentDay
+      );
+      let currentDay = currentDayValidationFound
+        ? "\n  currentDay : " + "new Date().toISOString().slice(0,10)" + comma
+        : "";
       let numberRules = numberFieldFound
         ? "\n      numberRules: " +
           "(value) =>Number.isInteger(Number(value)) ||" +
@@ -426,7 +441,7 @@ export default {
               doubleQuotes +
               comma;
         let fieldValue = nextLine + space + value;
-        let data = fieldValue + showDatePicker + showPass;
+        let data = fieldValue + currentDay + showDatePicker + showPass;
         return data;
       });
       return (
