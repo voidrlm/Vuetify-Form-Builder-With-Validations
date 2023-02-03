@@ -6,6 +6,7 @@
         ><form-builder
           class="mt-3"
           @addField="addTextField()"
+          @removeField="removeTextField"
           :form="formData" /></v-flex
       ><v-divider vertical />
       <v-flex xs12 sm12 md6>
