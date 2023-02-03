@@ -39,6 +39,7 @@ export default {
         outlined: false,
         dense: false,
         rounded: false,
+        minCurrentDay: false,
         max: 0,
       });
     },
