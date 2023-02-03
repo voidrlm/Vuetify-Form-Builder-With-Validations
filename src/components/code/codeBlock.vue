@@ -28,7 +28,13 @@
 
 <script>
 import { template, script, methods, data } from "../../resources/baseCode";
-import { doubleQuotes, comma, nextLine, space } from "@/resources/textHelpers";
+import {
+  doubleQuotes,
+  comma,
+  nextLine,
+  space,
+  doublespace,
+} from "@/resources/textHelpers";
 export default {
   props: { code: Array },
   data: () => ({}),
@@ -52,154 +58,141 @@ export default {
         if (field.type === "Date") {
           var dateComponent =
             nextLine +
+            doublespace +
             space +
-            space +
-            space +
-            "<v-menu ref=" +
+            "<v-menu" +
+            nextLine +
+            doublespace +
+            doublespace +
+            "ref=" +
             doubleQuotes +
             "menu" +
             (index + 1) +
             doubleQuotes +
-            " v-model=" +
+            nextLine +
+            doublespace +
+            doublespace +
+            "v-model=" +
             doubleQuotes +
             "showDatePicker" +
             (index + 1) +
             doubleQuotes +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             ":close-on-content-click=" +
             doubleQuotes +
             "false" +
             doubleQuotes +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             ":return-value.sync=" +
             doubleQuotes +
             "date" +
             doubleQuotes +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             "transition=" +
             doubleQuotes +
             "scale-transition" +
             doubleQuotes +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             "offset-y" +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             "min-width=" +
             doubleQuotes +
             "auto" +
             doubleQuotes +
+            nextLine +
+            doublespace +
+            space +
             ">" +
             nextLine +
-            space +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             "<template v-slot:activator=" +
-            "{ on, attrs }>" +
+            doubleQuotes +
+            "{ on, attrs }" +
+            doubleQuotes +
+            ">" +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             space +
             "<v-text-field" +
             nextLine +
-            space +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
+            doublespace +
             "v-model=" +
             doubleQuotes +
             "date" +
             (index + 1) +
             doubleQuotes +
-            label +
+            nextLine +
+            doublespace +
+            doublespace +
+            doublespace +
+            "label" +
             textFieldClass +
             nextLine +
-            space +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
+            doublespace +
             "prepend-icon=" +
             doubleQuotes +
             "mdi-calendar" +
             doubleQuotes +
             nextLine +
-            space +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
+            doublespace +
             "readonly" +
             nextLine +
-            space +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
+            doublespace +
             "v-bind=" +
             doubleQuotes +
             "attrs" +
             doubleQuotes +
-            "v-on=" +
+            " v-on=" +
             doubleQuotes +
             "on" +
             doubleQuotes +
             ">" +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             space +
             "</v-text-field>" +
             nextLine +
-            space +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             "</template>" +
             nextLine +
-            space +
-            space +
-            space +
-            space +
-            "<v-date-picker  v-model=" +
+            doublespace +
+            doublespace +
+            "<v-date-picker v-model=" +
             doubleQuotes +
             "date" +
             doubleQuotes +
-            nextLine +
-            space +
-            space +
-            space +
-            space +
             " no-title " +
-            nextLine +
-            space +
-            space +
-            space +
-            space +
             "scrollable>" +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             space +
             "<v-spacer/>" +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             space +
             "<v-btn text color=" +
             doubleQuotes +
@@ -210,13 +203,12 @@ export default {
             doubleQuotes +
             "showDatePicker" +
             (index + 1) +
-            doubleQuotes +
             "= false" +
+            doubleQuotes +
             ">Cancel </v-btn> " +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             space +
             "<v-btn text color=" +
             doubleQuotes +
@@ -229,17 +221,14 @@ export default {
             "menu" +
             (index + 1) +
             ".save(date)" +
+            doubleQuotes +
             ">OK</v-btn>" +
             nextLine +
-            space +
-            space +
-            space +
-            space +
+            doublespace +
+            doublespace +
             "</v-date-picker>" +
             nextLine +
-            space +
-            space +
-            space +
+            doublespace +
             space +
             "</v-menu>";
         }
@@ -383,7 +372,12 @@ export default {
       let code = this.code.map(function (field, index) {
         let showDatePicker =
           field.type === "Date"
-            ? "\n      showDatePicker" + (index + 1) + " : false" + comma
+            ? nextLine +
+              space +
+              "showDatePicker" +
+              (index + 1) +
+              " : false" +
+              comma
             : "";
         let showPass =
           field.type === "Password"
@@ -392,7 +386,9 @@ export default {
         let fieldValue =
           nextLine + space + field.type === "Date"
             ? "showDatePicker"
-            : "field" +
+            : nextLine +
+              space +
+              "field" +
               (index + 1) +
               " : " +
               doubleQuotes +
