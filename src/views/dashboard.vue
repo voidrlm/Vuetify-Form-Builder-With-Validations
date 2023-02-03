@@ -48,7 +48,6 @@ export default {
   name: "dashboard-component",
   data: () => ({
     formData: [],
-    links: ["Twitter", "Github"],
   }),
   components: {
     formBuilder,
