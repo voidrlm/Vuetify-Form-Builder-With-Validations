@@ -9,5 +9,5 @@ const router = new VueRouter({
 
 export default router;
 router.afterEach((to) => {
-  document.title = to.name !== null ? to.name : "Vue And Vuetify";
+  document.title = to.name !== null ? to.name : "Vuetify Form Builder";
 });

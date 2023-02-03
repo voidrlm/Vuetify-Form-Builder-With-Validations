@@ -1,7 +1,7 @@
 const routes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Playground",
     component: () => import("../views/dashboard.vue"),
   },
 ];
