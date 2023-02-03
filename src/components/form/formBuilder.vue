@@ -57,6 +57,28 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-tooltip bottom v-if="textfield.type === 'Date'">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              class="mr-2"
+              @click="textfield.minCurrentDay = !textfield.minCurrentDay"
+            >
+              <v-icon
+                :class="textfield.minCurrentDay ? '' : 'grey--text'"
+                v-bind="attrs"
+                v-on="on"
+              >
+                {{
+                  textfield.minCurrentDay
+                    ? " mdi-calendar-lock"
+                    : "mdi-calendar-lock-open"
+                }}
+              </v-icon></v-btn
+            >
+          </template>
+          <span>Date input cannot be before current day</span>
+        </v-tooltip>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
