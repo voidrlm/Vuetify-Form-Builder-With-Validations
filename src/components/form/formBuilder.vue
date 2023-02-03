@@ -65,7 +65,7 @@
               @click="textfield.minCurrentDay = !textfield.minCurrentDay"
             >
               <v-icon
-                :class="textfield.minCurrentDay ? '' : 'grey--text'"
+                :class="textfield.minCurrentDay ? '' : 'white--text'"
                 v-bind="attrs"
                 v-on="on"
               >
@@ -87,7 +87,7 @@
               @click="textfield.dense = !textfield.dense"
             >
               <v-icon
-                :class="textfield.dense ? '' : 'grey--text'"
+                :class="textfield.dense ? '' : 'white--text'"
                 v-bind="attrs"
                 v-on="on"
               >
@@ -105,7 +105,7 @@
               @click="textfield.outlined = !textfield.outlined"
             >
               <v-icon
-                :class="textfield.outlined ? '' : 'grey--text'"
+                :class="textfield.outlined ? '' : 'white--text'"
                 v-bind="attrs"
                 v-on="on"
               >
@@ -123,7 +123,7 @@
               @click="textfield.rounded = !textfield.rounded"
             >
               <v-icon
-                :class="textfield.rounded ? '' : 'grey--text'"
+                :class="textfield.rounded ? '' : 'white--text'"
                 v-bind="attrs"
                 v-on="on"
               >
