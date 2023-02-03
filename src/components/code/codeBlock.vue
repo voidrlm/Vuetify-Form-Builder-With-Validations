@@ -60,9 +60,9 @@ export default {
             "menu" +
             (index + 1) +
             doubleQuotes +
-            "v-model=" +
+            " v-model=" +
             doubleQuotes +
-            "menu" +
+            "showDatePicker" +
             (index + 1) +
             doubleQuotes +
             nextLine +
@@ -208,7 +208,7 @@ export default {
             space +
             "@click=" +
             doubleQuotes +
-            "menu" +
+            "showDatePicker" +
             (index + 1) +
             doubleQuotes +
             "= false" +
@@ -381,18 +381,24 @@ export default {
         : "";
 
       let code = this.code.map(function (field, index) {
+        let showDatePicker =
+          field.type === "Date"
+            ? "\n      showDatePicker" + (index + 1) + " : false" + comma
+            : "";
         let showPass =
           field.type === "Password"
             ? "\n      showPassOnField" + (index + 1) + " : false" + comma
             : "";
         let fieldValue =
-          "\n      field" +
-          (index + 1) +
-          " : " +
-          doubleQuotes +
-          doubleQuotes +
-          comma;
-        let data = fieldValue + showPass;
+          nextLine + space + field.type === "Date"
+            ? "showDatePicker"
+            : "field" +
+              (index + 1) +
+              " : " +
+              doubleQuotes +
+              doubleQuotes +
+              comma;
+        let data = fieldValue + showDatePicker + showPass;
         return data;
       });
       return (
