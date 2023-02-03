@@ -59,80 +59,47 @@
         <v-spacer></v-spacer>
         <v-tooltip bottom v-if="textfield.type === 'Date'">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              class="mr-2"
+            <v-chip
+              class="ma-2 font-weight-bold"
+              :class="textfield.minCurrentDay ? 'success--text' : ''"
+              outlined
+              v-bind="attrs"
+              v-on="on"
+              pill
               @click="textfield.minCurrentDay = !textfield.minCurrentDay"
             >
-              <v-icon
-                :class="textfield.minCurrentDay ? '' : 'white--text'"
-                v-bind="attrs"
-                v-on="on"
-              >
-                {{
-                  textfield.minCurrentDay
-                    ? " mdi-calendar-lock"
-                    : "mdi-calendar-lock-open"
-                }}
-              </v-icon></v-btn
-            >
+              Date Validation
+            </v-chip>
           </template>
           <span>Date input cannot be before current day</span>
         </v-tooltip>
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              class="mr-2"
-              @click="textfield.dense = !textfield.dense"
-            >
-              <v-icon
-                :class="textfield.dense ? '' : 'white--text'"
-                v-bind="attrs"
-                v-on="on"
-              >
-                mdi-image-size-select-small
-              </v-icon></v-btn
-            >
-          </template>
-          <span>Dense</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              class="mr-2"
-              @click="textfield.outlined = !textfield.outlined"
-            >
-              <v-icon
-                :class="textfield.outlined ? '' : 'white--text'"
-                v-bind="attrs"
-                v-on="on"
-              >
-                mdi-card-outline
-              </v-icon></v-btn
-            >
-          </template>
-          <span>Outlined</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              icon
-              class="mr-2"
-              @click="textfield.rounded = !textfield.rounded"
-            >
-              <v-icon
-                :class="textfield.rounded ? '' : 'white--text'"
-                v-bind="attrs"
-                v-on="on"
-              >
-                mdi-rounded-corner
-              </v-icon></v-btn
-            >
-          </template>
-          <span>Rounded Corners</span>
-        </v-tooltip>
+        <v-chip
+          class="ma-2 font-weight-bold"
+          :class="textfield.dense ? 'success--text' : ''"
+          outlined
+          pill
+          @click="textfield.dense = !textfield.dense"
+        >
+          Dense
+        </v-chip>
+        <v-chip
+          class="ma-2 font-weight-bold"
+          :class="textfield.outlined ? 'success--text' : ''"
+          outlined
+          pill
+          @click="textfield.outlined = !textfield.outlined"
+        >
+          Outlined
+        </v-chip>
+        <v-chip
+          class="ma-2 font-weight-bold"
+          :class="textfield.rounded ? 'success--text' : ''"
+          outlined
+          pill
+          @click="textfield.rounded = !textfield.rounded"
+        >
+          Rounded
+        </v-chip>
         <v-divider vertical></v-divider>
         <v-btn
           icon
