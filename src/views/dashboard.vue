@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid>
     <v-layout row wrap>
       <v-flex xs12 sm12 md6>
         <v-card-title class="justify-center h5">Playground</v-card-title
