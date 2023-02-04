@@ -5,63 +5,53 @@
     dense
     flat
   >
-    <v-toolbar-title>Vuetify Form Builder</v-toolbar-title>
+    <v-toolbar-title class="font-weight-bold"
+      >Vuetify Form Builder</v-toolbar-title
+    >
 
     <v-spacer></v-spacer>
-    <span
-      @click="showClock = true"
-      v-if="$vuetify.breakpoint.mdAndUp"
-      class="subtitle-1"
-      style="cursor: pointer"
-      >{{ dateTime.hours }}:{{ dateTime.minutes }}{{ " "
-      }}{{ dateTime.ampm }}</span
+    <v-btn
+      icon
+      rounded
+      class="my-2"
+      href="https://twitter.com/voidrlm"
+      target="_blank"
     >
-    <appBarMenu />
-    <div v-if="showClock">
-      <clockDialog
-        :showClock="showClock"
-        :dateTime="dateTime"
-        @hideClock="showClock = false"
-      />
-    </div>
+      <v-icon size="24px"> mdi-twitter </v-icon>
+    </v-btn>
+    <v-btn
+      icon
+      rounded
+      class="my-2"
+      href="https://github.com/voidrlm/Vuetify-Form-Builder-With-Validations"
+      target="_blank"
+    >
+      <v-icon size="24px"> mdi-github </v-icon>
+    </v-btn>
+    <v-btn
+      icon
+      @click="
+        $vuetify.theme.dark = !$vuetify.theme.dark;
+        saveSettings('darkMode');
+      "
+      ><v-icon>mdi-theme-light-dark</v-icon></v-btn
+    >
   </v-app-bar>
 </template>
 
 <script>
-import clockDialog from "../clock/clockDialog.vue";
-import appBarMenu from "./appBarMenu.vue";
 export default {
-  components: {
-    appBarMenu,
-    clockDialog,
-  },
-  data: () => ({
-    showClock: false,
-    dateTime: {
-      hours: "--",
-      minutes: "--",
-      ampm: "",
-    },
-    timer: undefined,
-  }),
+  data: () => ({}),
   beforeMount() {
     if (localStorage.getItem("darkTheme") !== null) {
       this.$vuetify.theme.dark = JSON.parse(localStorage.getItem("darkTheme"));
     }
-    this.timer = setInterval(this.setDateTime, 1000);
-  },
-  beforeUnmount() {
-    clearInterval(this.timer);
   },
   methods: {
-    setDateTime() {
-      const date = new Date();
-      this.dateTime = {
-        hours: date.getHours() % 12,
-        minutes: (date.getMinutes() < 10 ? "0" : "") + date.getMinutes(),
-        ampm: date.getHours() >= 12 ? "PM" : "AM",
-        date: new Date().toDateString(),
-      };
+    saveSettings(parameter) {
+      if (parameter === "darkMode") {
+        localStorage.setItem("darkTheme", this.$vuetify.theme.dark);
+      }
     },
   },
 };
