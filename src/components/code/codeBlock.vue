@@ -5,16 +5,8 @@
       :justify-center="$vuetify.breakpoint.smAndDown"
       class="mr-1 mt-3 mb-3"
     >
-      <v-btn
-        elevation="0"
-        rounded
-        color="accent"
-        @click="runCode()"
-        class="mr-2"
-        :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
-      >
-        <v-icon size="25px" class="mr-2">mdi-play</v-icon>Test
-      </v-btn>
+      <codeRunner :code="getCodeToRun" />
+
       <v-btn
         elevation="0"
         rounded
@@ -37,6 +29,7 @@
 </template>
 
 <script>
+import codeRunner from "./codeRunner.vue";
 import { template, script, methods, data } from "../../resources/baseCode";
 import {
   doubleQuotes,
@@ -47,10 +40,17 @@ import {
 } from "@/resources/textHelpers";
 export default {
   props: { code: Array },
-  data: () => ({}),
+  data: () => ({ dialog: false }),
+  components: { codeRunner },
   computed: {
+    getCodeToRun() {
+      return this.code;
+    },
     textFieldCodes() {
       let code = this.code.map(function (field, index) {
+        //Reset for code runner
+        field.value = "";
+        field.showPassOnField = false;
         if (
           field.type == "E-Mail" ||
           field.type == "Date" ||
@@ -215,13 +215,6 @@ export default {
             denseProp +
             outlinedProp +
             rule +
-            nextLine +
-            doublespace +
-            doublespace +
-            doublespace +
-            "type=" +
-            "'date'" +
-            doublespace +
             nextLine +
             doublespace +
             doublespace +
