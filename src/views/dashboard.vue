@@ -46,6 +46,7 @@ export default {
         rounded: false,
         minCurrentDay: false,
         max: 0,
+        showPassOnField: false,
       });
     },
     removeTextField: function (index) {
