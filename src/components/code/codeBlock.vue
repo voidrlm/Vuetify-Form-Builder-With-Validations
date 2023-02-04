@@ -1,6 +1,20 @@
 <template>
   <v-card-text>
-    <v-layout justify-end class="mr-1 mt-3 mb-3">
+    <v-layout
+      :justify-end="$vuetify.breakpoint.lgAndUp"
+      :justify-center="$vuetify.breakpoint.smAndDown"
+      class="mr-1 mt-3 mb-3"
+    >
+      <v-btn
+        elevation="0"
+        rounded
+        color="accent"
+        @click="runCode()"
+        class="mr-2"
+        :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+      >
+        <v-icon size="25px" class="mr-2">mdi-play</v-icon>Test
+      </v-btn>
       <v-btn
         elevation="0"
         rounded
@@ -480,6 +494,9 @@ export default {
   methods: {
     copyCode() {
       navigator.clipboard.writeText(this.fullCode);
+    },
+    runCode() {
+      console.log("Running code");
     },
   },
 };
