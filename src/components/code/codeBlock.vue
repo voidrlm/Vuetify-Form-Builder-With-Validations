@@ -205,6 +205,13 @@ export default {
             doublespace +
             doublespace +
             doublespace +
+            "type=" +
+            "'date'" +
+            doublespace +
+            nextLine +
+            doublespace +
+            doublespace +
+            doublespace +
             "prepend-inner-icon=" +
             doubleQuotes +
             "mdi-calendar" +
@@ -325,7 +332,19 @@ export default {
                 (index + 1) +
                 " ? 'text' : 'password'" +
                 doubleQuotes
-              : "";
+              : nextLine +
+                doublespace +
+                doublespace +
+                "type=" +
+                doubleQuotes +
+                (field.type === "Number"
+                  ? "number"
+                  : field.type === "Text"
+                  ? "text"
+                  : field.type === "E-Mail"
+                  ? "email"
+                  : "") +
+                doubleQuotes;
 
           var numberVModel = field.type === "Number" ? ".Number" : "";
           var value =
