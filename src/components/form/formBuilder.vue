@@ -8,7 +8,7 @@
     >
       <v-card-text
         ><v-layout row wrap class="mb-n5">
-          <v-flex xs8 sm8 md8
+          <v-flex xs12 sm8 md8
             ><v-text-field
               rounded
               v-model="textfield.title"
@@ -16,8 +16,9 @@
               solo
               class="ma-2"
               flat
+              hint="Label"
             ></v-text-field></v-flex
-          ><v-flex xs4 sm4 md4
+          ><v-flex xs12 sm4 md4
             ><v-select
               rounded
               v-model="textfield.type"
@@ -26,35 +27,40 @@
               item-text="title"
               class="ma-2"
               flat
+              hint="Field Type"
             ></v-select></v-flex
         ></v-layout>
 
-        <v-layout row class="mt-n8">
-          <v-slider
-            :disabled="
-              textfield.type == 'E-Mail' ||
-              textfield.type == 'Date' ||
-              textfield.type == 'Number' ||
-              textfield.type == 'Password'
-            "
-            thumb-label
-            v-model="textfield.max"
-            class="mt-4 mx-4"
-            color="primary"
-            label="Max characters"
-          >
-          </v-slider>
-
-          <v-switch
-            v-model="textfield.required"
-            class="font-weight-medium mr-5"
-            inset
-            :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
-            :color="
-              $vuetify.theme.dark ? 'primary lighten-1' : 'primary darken-1'
-            "
-            :label="'Required'"
-          ></v-switch></v-layout
+        <v-layout row class="mt-n8 justify-center align-center">
+          <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : 10">
+            <v-slider
+              :disabled="
+                textfield.type == 'E-Mail' ||
+                textfield.type == 'Date' ||
+                textfield.type == 'Number' ||
+                textfield.type == 'Password'
+              "
+              thumb-label
+              v-model="textfield.max"
+              class="mt-4 mr-2"
+              color="primary"
+              :max="50"
+              label="Max characters"
+            >
+            </v-slider
+          ></v-col>
+          <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : 2">
+            <v-row align="center" justify="center">
+              <v-switch
+                v-model="textfield.required"
+                class="font-weight-medium mr-5"
+                inset
+                :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                :color="
+                  $vuetify.theme.dark ? 'primary lighten-1' : 'primary darken-1'
+                "
+                :label="'Required'"
+              ></v-switch></v-row></v-col></v-layout
       ></v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
