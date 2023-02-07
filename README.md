@@ -13,6 +13,14 @@ Dynamic form validation and error handling
 
 Responsive design for mobile compatibility
 
+## Upcoming
+
+Templates
+
+Text validaiton Fixes
+
+Checkbox field
+
 ## Installation
 
 Clone the repository from GitHub
