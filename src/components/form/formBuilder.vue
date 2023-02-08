@@ -65,6 +65,22 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-tooltip bottom v-if="textfield.type === 'Number'">
+          <template v-slot:activator="{ on, attrs }">
+            <v-chip
+              class="ma-2 font-weight-bold"
+              :class="textfield.showDollarPrefix ? 'success--text' : ''"
+              outlined
+              v-bind="attrs"
+              v-on="on"
+              pill
+              @click="textfield.showDollarPrefix = !textfield.showDollarPrefix"
+            >
+              $
+            </v-chip>
+          </template>
+          <span>Adds a dollar prefix in textfield</span>
+        </v-tooltip>
         <v-tooltip bottom v-if="textfield.type === 'Date'">
           <template v-slot:activator="{ on, attrs }">
             <v-chip
