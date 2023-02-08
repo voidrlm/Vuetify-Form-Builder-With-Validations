@@ -62,6 +62,9 @@ export default {
         if (field.type !== "Date") {
           field.minCurrentDay = false;
         }
+        if (field.type !== "Number") {
+          field.showDollarPrefix = false;
+        }
         //CODE GENERATION
         //COMMON THINGS FOR ALL TEXT FIELD
         var spacingForTextFieldProp =
@@ -323,7 +326,9 @@ export default {
         //End of date component
         if (field.type !== "Date") {
           var openTextField = "\n        <v-text-field";
-
+          var prefix = field.showDollarPrefix
+            ? "\n        prefix=" + doubleQuotes + "$" + doubleQuotes + ""
+            : "";
           var hint =
             field.type === "Password"
               ? "\n        hint=" +
@@ -391,6 +396,7 @@ export default {
             ? openTextField +
               textFieldClass +
               label +
+              prefix +
               hint +
               appendicon +
               type +
