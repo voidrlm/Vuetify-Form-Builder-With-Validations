@@ -77,8 +77,16 @@ export default {
             : field.type == "Number"
             ? "numberRules"
             : "";
+        let textLengthRule =
+          field.type == "Text" && field.max !== 0
+            ? "(v) => !!v && v.length <=" +
+              field.max +
+              "|| 'Must be less than " +
+              field.max +
+              " characters',"
+            : "";
         var rule =
-          field.required || ruleType !== ""
+          field.required || textLengthRule != ""
             ? nextLine +
               spacingForTextFieldProp +
               ":rules=" +
@@ -86,6 +94,7 @@ export default {
               "[" +
               required +
               ruleType +
+              textLengthRule +
               "]" +
               doubleQuotes
             : "";
@@ -363,9 +372,7 @@ export default {
             (index + 1) +
             doubleQuotes;
           var counter = field.max ? "\n        counter" : "";
-          var maxLength = field.max
-            ? "\n        :maxlength=" + doubleQuotes + field.max + doubleQuotes
-            : "";
+
           var click =
             field.type === "Password"
               ? "\n        @click:append=" +
@@ -391,7 +398,6 @@ export default {
               outlinedProp +
               value +
               counter +
-              maxLength +
               click +
               rule +
               closeTextField
