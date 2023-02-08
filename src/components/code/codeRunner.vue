@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" width="500">
+  <v-dialog v-model="dialog" width="500" content-class="rounded-xl">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         elevation="0"
@@ -13,8 +13,14 @@
         <v-icon size="25px" class="mr-2">mdi-play</v-icon>Test
       </v-btn>
     </template>
-    <v-card class="rounded-lg pa-5">
-      <v-card-title class="justify-center align-center">Form</v-card-title>
+    <v-card class="rounded-lg pa-2" style="overflow-x: hidden">
+      <v-row class="pa-3">
+        <v-card-title class="justify-center align-center">Form</v-card-title
+        ><v-spacer /><v-btn class="mt-3 mr-2" icon @click="dialog = false"
+          ><v-icon>mdi-close-circle</v-icon></v-btn
+        ></v-row
+      >
+
       <v-form lazy-validation v-model="valid" ref="form">
         <v-container class="text-center" fluid>
           <div v-for="(textfield, index) in code" :key="index">
@@ -110,8 +116,8 @@
           </div></v-container
         ></v-form
       >
-      <v-card-actions class="justify-center align-center">
-        <v-btn @click="save">Save</v-btn>
+      <v-card-actions class="justify-center align-center ma-2">
+        <v-btn rounded @click="save">Save</v-btn>
       </v-card-actions></v-card
     >
   </v-dialog>
