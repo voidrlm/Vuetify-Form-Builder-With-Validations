@@ -1,3 +1,18 @@
+export const blank = [
+  {
+    title: "",
+    type: "Text",
+    required: false,
+    outlined: false,
+    dense: false,
+    rounded: false,
+    minCurrentDay: false,
+    max: 0,
+    showPassOnField: false,
+    value: "",
+    showDollarPrefix: false,
+  },
+];
 export const signupForm = [
   {
     title: "First Name",
