@@ -53,7 +53,7 @@
             <v-row align="center" justify="center">
               <v-switch
                 v-model="textfield.required"
-                class="font-weight-medium mr-5"
+                class="font-weight-medium mr-10"
                 inset
                 :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
                 :color="
