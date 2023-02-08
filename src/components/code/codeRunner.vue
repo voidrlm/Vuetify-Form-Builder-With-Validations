@@ -47,6 +47,7 @@
                     ? textfield.max
                     : ''
                 "
+                :prefix="textfield.showDollarPrefix ? '$' : ''"
                 v-model="textfield.value"
                 :rules="generateRules(textfield.required, textfield.type)"
                 :type="
