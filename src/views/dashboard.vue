@@ -46,6 +46,7 @@ import {
   signUp2,
   contactUs,
   sales,
+  blank,
 } from "@/resources/templateCodes";
 export default {
   name: "dashboard-component",
@@ -53,6 +54,7 @@ export default {
     formData: [],
     model: null,
     templates: [
+      { title: "Blank", code: blank },
       { title: "Sign-up", code: signupForm },
       { title: "Sign-In", code: signin },
       { title: "Sign-up 2", code: signUp2 },
