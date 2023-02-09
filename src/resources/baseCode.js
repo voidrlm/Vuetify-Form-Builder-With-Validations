@@ -10,11 +10,27 @@ export const template = [
     "text-center" +
     doubleQuotes +
     ">",
-  "\n    </v-container>\n    <v-btn @click=" +
+  "\n    </v-container>" +
+    nextLine +
+    doublespace +
+    "<div class=" +
+    doubleQuotes +
+    "text-center" +
+    doubleQuotes +
+    ">" +
+    nextLine +
+    doublespace +
+    "   <v-btn @click=" +
     doubleQuotes +
     "save" +
     doubleQuotes +
-    ">Save</v-btn> \n    </v-form>\n</template>",
+    ">Save</v-btn>" +
+    nextLine +
+    doublespace +
+    "</div>" +
+    nextLine +
+    space +
+    "</v-form>\n</template>",
 ];
 
 export const script = [
@@ -30,4 +46,4 @@ export const methods = [
   "\n  methods: {\n    save () {\n    this.$refs.form.validate();\n    }, },",
 ];
 
-import { doubleQuotes } from "./textHelpers";
+import { doubleQuotes, nextLine, doublespace, space } from "./textHelpers";
