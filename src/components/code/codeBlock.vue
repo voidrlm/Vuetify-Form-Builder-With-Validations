@@ -492,11 +492,16 @@ export default {
               doubleQuotes +
               comma;
         let fieldValue = nextLine + space + value;
-        let data = fieldValue + currentDay + showDatePicker + showPass;
+        let data = fieldValue + showDatePicker + showPass;
         return data;
       });
       return (
-        code.join("") + passwordRules + emailRules + requiredRules + numberRules
+        code.join("") +
+        passwordRules +
+        emailRules +
+        requiredRules +
+        numberRules +
+        currentDay
       );
     },
     fullCode() {
