@@ -20,7 +20,6 @@
           ><v-icon>mdi-close-circle</v-icon></v-btn
         ></v-row
       >
-
       <v-form lazy-validation v-model="valid" ref="form">
         <v-container class="text-center" fluid>
           <div v-for="(textfield, index) in code" :key="index">

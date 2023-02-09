@@ -6,7 +6,6 @@
       class="mr-1 mt-3 mb-3"
     >
       <codeRunner :code="getCodeToRun" />
-
       <v-btn
         elevation="0"
         rounded
