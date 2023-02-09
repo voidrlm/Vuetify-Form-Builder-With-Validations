@@ -35,16 +35,13 @@
           <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : 10">
             <v-slider
               :disabled="
-                textfield.type == 'E-Mail' ||
-                textfield.type == 'Date' ||
-                textfield.type == 'Number' ||
-                textfield.type == 'Password'
+                textfield.type !== 'Text' && textfield.type !== 'Number'
               "
               thumb-label
               v-model="textfield.max"
               class="mt-4 mr-2"
               color="primary"
-              :max="50"
+              :max="textfield.type === 'Number' ? 25 : 500"
               label="Max characters"
             >
             </v-slider
@@ -107,6 +104,7 @@
           Dense
         </v-chip>
         <v-chip
+          v-if="textfield.type !== 'Checkbox'"
           class="ma-2 font-weight-bold"
           :class="textfield.outlined ? 'success--text' : ''"
           outlined
@@ -116,6 +114,7 @@
           Outlined
         </v-chip>
         <v-chip
+          v-if="textfield.type !== 'Checkbox'"
           class="ma-2 font-weight-bold"
           :class="textfield.rounded ? 'success--text' : ''"
           outlined
@@ -160,6 +159,7 @@ export default {
       { title: "Password" },
       { title: "E-Mail" },
       { title: "Date" },
+      { title: "Checkbox" },
     ],
   }),
   methods: {},

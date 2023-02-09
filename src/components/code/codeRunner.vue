@@ -24,49 +24,6 @@
       <v-form lazy-validation v-model="valid" ref="form">
         <v-container class="text-center" fluid>
           <div v-for="(textfield, index) in code" :key="index">
-            <div v-if="textfield.type !== 'Date'">
-              <v-text-field
-                :hint="
-                  textfield.type === 'Password' ? 'At least 8 characters' : ''
-                "
-                :append-icon="
-                  textfield.type === 'Password' && textfield.showPassOnField
-                    ? 'mdi-eye'
-                    : textfield.type === 'Password' &&
-                      !textfield.showPassOnField
-                    ? 'mdi-eye-off'
-                    : ''
-                "
-                :label="textfield.title"
-                :dense="textfield.dense"
-                :outlined="textfield.outlined"
-                :class="textfield.rounded ? 'rounded-xl' : ''"
-                :counter="textfield.type === 'Text' && textfield.max !== 0"
-                :maxlength="
-                  textfield.type === 'Text' && textfield.max !== 0
-                    ? textfield.max
-                    : ''
-                "
-                :prefix="textfield.showDollarPrefix ? '$' : ''"
-                v-model="textfield.value"
-                :rules="generateRules(textfield.required, textfield.type)"
-                :type="
-                  (textfield.type === 'Password' &&
-                    textfield.showPassOnField) ||
-                  textfield.type === 'Text'
-                    ? 'text'
-                    : !textfield.showPassOnField &&
-                      textfield.type === 'Password'
-                    ? 'password'
-                    : textfield.type === 'E-Mail'
-                    ? 'email'
-                    : ''
-                "
-                @click:append="
-                  textfield.showPassOnField = !textfield.showPassOnField
-                "
-              ></v-text-field>
-            </div>
             <div v-if="textfield.type === 'Date'">
               <v-menu
                 ref="datePicker"
@@ -114,11 +71,64 @@
                 </v-date-picker>
               </v-menu>
             </div>
-          </div></v-container
-        ></v-form
-      >
+            <div v-else-if="textfield.type === 'Checkbox'">
+              <v-checkbox
+                v-model="textfield.value"
+                :label="textfield.title"
+                :rules="generateRules(textfield.required, textfield.type)"
+                :dense="textfield.dense"
+                :outlined="textfield.outlined"
+              ></v-checkbox>
+            </div>
+            <div v-else>
+              <v-text-field
+                :hint="
+                  textfield.type === 'Password' ? 'At least 8 characters' : ''
+                "
+                :append-icon="
+                  textfield.type === 'Password' && textfield.showPassOnField
+                    ? 'mdi-eye'
+                    : textfield.type === 'Password' &&
+                      !textfield.showPassOnField
+                    ? 'mdi-eye-off'
+                    : ''
+                "
+                :label="textfield.title"
+                :dense="textfield.dense"
+                :outlined="textfield.outlined"
+                :class="textfield.rounded ? 'rounded-xl' : ''"
+                :counter="textfield.type === 'Text' && textfield.max !== 0"
+                :maxlength="
+                  textfield.type === 'Text' && textfield.max !== 0
+                    ? textfield.max
+                    : ''
+                "
+                :prefix="textfield.showDollarPrefix ? '$' : ''"
+                v-model="textfield.value"
+                :rules="generateRules(textfield.required, textfield.type)"
+                :type="
+                  (textfield.type === 'Password' &&
+                    textfield.showPassOnField) ||
+                  textfield.type === 'Text'
+                    ? 'text'
+                    : !textfield.showPassOnField &&
+                      textfield.type === 'Password'
+                    ? 'password'
+                    : textfield.type === 'E-Mail'
+                    ? 'email'
+                    : ''
+                "
+                @click:append="
+                  textfield.showPassOnField = !textfield.showPassOnField
+                "
+              ></v-text-field>
+            </div>
+          </div>
+        </v-container>
+      </v-form>
+
       <v-card-actions class="justify-center align-center ma-2">
-        <v-btn rounded @click="save">Save</v-btn>
+        <v-btn @click="save">Save</v-btn>
       </v-card-actions></v-card
     >
   </v-dialog>
@@ -128,6 +138,7 @@
 export default {
   props: { code: Array },
   data: () => ({
+    checkbox1: 0,
     dialog: false,
     valid: true,
     requiredRules: (v) => !!v || "This field is required.",
@@ -145,7 +156,7 @@ export default {
       if (required) {
         rules.push(this.requiredRules);
       }
-      if (type !== "Text") {
+      if (type !== "Text" && type !== "Checkbox") {
         let ruleToAdd =
           type === "Number"
             ? this.numberRules

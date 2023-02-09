@@ -54,8 +54,8 @@ export default {
         if (
           field.type == "E-Mail" ||
           field.type == "Date" ||
-          field.type == "Number" ||
-          field.type == "Password"
+          field.type == "Password" ||
+          field.type == "Checkbox"
         ) {
           field.max = 0;
         }
@@ -81,8 +81,9 @@ export default {
             ? "numberRules"
             : "";
         let textLengthRule =
-          field.type == "Text" && field.max !== 0
-            ? "(v) => !!v && v.length <=" +
+          (field.type == "Text" || field.type == "Number") && field.max !== 0
+            ? (field.type == "Number" ? "," : "") +
+              "(v) => !!v && v.length <=" +
               field.max +
               "|| 'Must be less than " +
               field.max +
@@ -231,14 +232,6 @@ export default {
             doublespace +
             doublespace +
             doublespace +
-            "prepend-inner-icon=" +
-            doubleQuotes +
-            "mdi-calendar" +
-            doubleQuotes +
-            nextLine +
-            doublespace +
-            doublespace +
-            doublespace +
             "readonly" +
             nextLine +
             doublespace +
@@ -323,6 +316,28 @@ export default {
             space +
             "</v-menu>";
         }
+        if (field.type === "Checkbox") {
+          var checkbox =
+            nextLine +
+            doublespace +
+            doublespace +
+            "<v-checkbox" +
+            nextLine +
+            doublespace +
+            doublespace +
+            "v-model=" +
+            doubleQuotes +
+            "field" +
+            (index + 1) +
+            doubleQuotes +
+            rule +
+            label +
+            denseProp +
+            nextLine +
+            doublespace +
+            doublespace +
+            "></v-checkbox>";
+        }
         //End of date component
         if (field.type !== "Date") {
           var openTextField = "\n        <v-text-field";
@@ -392,8 +407,11 @@ export default {
         }
         //COMBINE ALL
         let textField =
-          field.type !== "Date"
-            ? openTextField +
+          field.type === "Date"
+            ? dateComponent
+            : field.type === "Checkbox"
+            ? checkbox
+            : openTextField +
               textFieldClass +
               label +
               prefix +
@@ -406,8 +424,7 @@ export default {
               counter +
               click +
               rule +
-              closeTextField
-            : dateComponent;
+              closeTextField;
         return textField;
       });
       return code.join("");
