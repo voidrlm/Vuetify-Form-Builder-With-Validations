@@ -42,7 +42,6 @@
                     :dense="textfield.dense"
                     :outlined="textfield.outlined"
                     :class="textfield.rounded ? 'rounded-xl' : ''"
-                    prepend-inner-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
                     v-on="on"
