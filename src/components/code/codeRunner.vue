@@ -122,13 +122,12 @@
               ></v-text-field>
             </div>
           </div>
+          <div class="text-center">
+            <v-btn @click="save">Save</v-btn>
+          </div>
         </v-container>
       </v-form>
-
-      <v-card-actions class="justify-center align-center ma-2">
-        <v-btn @click="save">Save</v-btn>
-      </v-card-actions></v-card
-    >
+    </v-card>
   </v-dialog>
 </template>
 
