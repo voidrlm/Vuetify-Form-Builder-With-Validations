@@ -19,7 +19,7 @@
     <v-card class="rounded-xl secondary">
       <pre
         ref="Syntax"
-        class="CodeBackground"
+        class="CodeBackground font-weight-bold"
         style="padding: 20px; overflow: auto; border-radius: 10px"
         >{{ fullCode }}</pre
       >
