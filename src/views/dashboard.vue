@@ -20,17 +20,22 @@
                                 </v-btn>
                             </v-slide-item>
                         </v-slide-group>
-                    </v-sheet></v-card
-                >
+                    </v-sheet>
+                </v-card>
                 <form-builder
                     class="mt-3"
                     @addField="addTextField()"
                     @removeField="removeTextField"
                     :form="formData" /></v-flex
-            ><v-divider vertical />
+            ><v-divider vertical v-if="!$vuetify.breakpoint.xsOnly" />
             <v-flex xs12 sm12 md6>
-                <v-card-title class="justify-center h5">Code</v-card-title><code-block :code="formData" /></v-flex
+                <v-divider class="mt-5" v-if="$vuetify.breakpoint.xsOnly" />
+                <v-card-title class="justify-center h5" id="codeSection">Code</v-card-title
+                ><code-block :code="formData" /></v-flex
         ></v-layout>
+        <v-btn v-show="$vuetify.breakpoint.xsOnly" fab color="green" bottom right fixed @click="navigateToCode()">
+            <v-icon>mdi-code-braces</v-icon>
+        </v-btn>
     </v-container>
 </template>
 <script>
@@ -77,6 +82,11 @@ export default {
         },
         removeTextField: function (index) {
             this.formData.splice(index, 1);
+        },
+        navigateToCode: function () {
+            const position = document.getElementById('codeSection').offsetTop;
+            // smooth scroll
+            window.scrollTo({ top: position, behavior: 'smooth' });
         },
     },
 };
