@@ -43,7 +43,7 @@
             fixed
             @click="navigateToCode()"
         >
-            <v-icon>mdi-code-braces</v-icon>
+            <v-icon>mdi-code-json</v-icon>
         </v-btn>
     </v-container>
 </template>
