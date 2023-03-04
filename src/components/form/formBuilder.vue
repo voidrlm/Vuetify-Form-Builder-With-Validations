@@ -57,7 +57,6 @@
             ></v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
-                <v-spacer></v-spacer>
                 <v-tooltip bottom v-if="textfield.type === 'Number'">
                     <template v-slot:activator="{ on, attrs }">
                         <v-chip
@@ -117,8 +116,8 @@
                     pill
                     @click="textfield.rounded = !textfield.rounded"
                 >
-                    Rounded
-                </v-chip>
+                    Rounded </v-chip
+                ><v-spacer></v-spacer>
                 <v-divider vertical></v-divider>
                 <v-btn
                     icon
