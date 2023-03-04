@@ -33,7 +33,16 @@
                 <v-card-title class="justify-center h5" id="codeSection">Code</v-card-title
                 ><code-block :code="formData" /></v-flex
         ></v-layout>
-        <v-btn v-show="$vuetify.breakpoint.xsOnly" fab color="green" bottom right fixed @click="navigateToCode()">
+        <v-btn
+            v-show="$vuetify.breakpoint.xsOnly"
+            fab
+            color="green"
+            elevation="20"
+            bottom
+            right
+            fixed
+            @click="navigateToCode()"
+        >
             <v-icon>mdi-code-braces</v-icon>
         </v-btn>
     </v-container>
@@ -85,7 +94,6 @@ export default {
         },
         navigateToCode: function () {
             const position = document.getElementById('codeSection').offsetTop;
-            // smooth scroll
             window.scrollTo({ top: position, behavior: 'smooth' });
         },
     },
