@@ -2,6 +2,9 @@
 
 A form builder tool that allows you to easily create dynamic forms using the Vuetify UI framework and Vue.js.
 
+# Screenshot
+https://imgur.com/lwqoM96
+
 ## Demo
 <p>
     <a href="https://voidrlm.github.io/Vuetify-Form-Builder-With-Validations/#/dashboard" target="_blank">Online Demo</a>
