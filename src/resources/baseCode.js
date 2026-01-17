@@ -1,10 +1,12 @@
 export const template = [
-  "<template> \n  <v-form lazy-validation v-model=" +
+  "<template> \n  <v-form v-model=" +
     doubleQuotes +
     "valid" +
     doubleQuotes +
     " ref=" +
+    doubleQuotes +
     "form" +
+    doubleQuotes +
     ">\n    <v-container class=" +
     doubleQuotes +
     "text-center" +

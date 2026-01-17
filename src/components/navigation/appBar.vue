@@ -1,8 +1,8 @@
 <template>
   <v-app-bar
-    :color="$vuetify.theme.dark ? '#121212' : '#FFFFFF'"
+    :color="theme.global.current.value.dark ? '#121212' : '#FFFFFF'"
     app
-    dense
+    density="compact"
     flat
   >
     <v-toolbar-title class="font-weight-bold"
@@ -30,29 +30,37 @@
     </v-btn>
     <v-btn
       icon
-      @click="
-        $vuetify.theme.dark = !$vuetify.theme.dark;
-        saveSettings('darkMode');
-      "
+      @click="toggleTheme"
       ><v-icon>mdi-theme-light-dark</v-icon></v-btn
     >
   </v-app-bar>
 </template>
 
 <script>
+import { useTheme } from 'vuetify'
+
 export default {
+  setup() {
+    const theme = useTheme()
+    return { theme }
+  },
   data: () => ({}),
   beforeMount() {
     if (localStorage.getItem("darkTheme") !== null) {
-      this.$vuetify.theme.dark = JSON.parse(localStorage.getItem("darkTheme"));
+      const isDark = JSON.parse(localStorage.getItem("darkTheme"))
+      this.theme.global.name.value = isDark ? 'dark' : 'light'
     }
   },
   methods: {
+    toggleTheme() {
+      this.theme.global.name.value = this.theme.global.current.value.dark ? 'light' : 'dark'
+      this.saveSettings('darkMode')
+    },
     saveSettings(parameter) {
       if (parameter === "darkMode") {
-        localStorage.setItem("darkTheme", this.$vuetify.theme.dark);
+        localStorage.setItem("darkTheme", this.theme.global.current.value.dark)
       }
     },
   },
-};
+}
 </script>
