@@ -9,9 +9,10 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^2.6.14",
-    "vue-router": "^3.5.1",
-    "vuetify": "^2.6.0"
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "vuetify": "^3.4.0",
+    "@mdi/font": "^7.3.67"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -21,12 +22,9 @@
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "sass": "~1.32.0",
-    "sass-loader": "^10.0.0",
-    "vue-cli-plugin-vuetify": "~2.5.8",
-    "vue-template-compiler": "^2.6.14",
-    "vuetify-loader": "^1.7.0"
+    "eslint-plugin-vue": "^9.17.0",
+    "sass": "^1.69.0",
+    "sass-loader": "^13.3.0"
   },
   "eslintConfig": {
     "root": true,
@@ -34,7 +32,7 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/vue3-essential",
       "eslint:recommended"
     ],
     "parserOptions": {

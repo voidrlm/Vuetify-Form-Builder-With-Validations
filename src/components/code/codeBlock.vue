@@ -1,9 +1,8 @@
 <template>
     <v-card-text>
-        <v-layout
-            :justify-end="$vuetify.breakpoint.lgAndUp"
-            :justify-center="$vuetify.breakpoint.smAndDown"
-            class="mr-1 mb-5"
+        <div
+            class="d-flex mr-1 mb-5"
+            :class="display.lgAndUp.value ? 'justify-end' : 'justify-center'"
         >
             <codeRunner :code="getCodeToRun" />
             <v-btn
@@ -11,12 +10,12 @@
                 rounded
                 color="accent"
                 @click="copyCode()"
-                :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                :class="theme.global.current.value.dark ? 'text-white' : 'text-black'"
             >
                 <v-icon size="25px" class="mr-2">mdi-clipboard-outline</v-icon>Copy Code
             </v-btn>
-        </v-layout>
-        <v-card class="rounded-xl secondary">
+        </div>
+        <v-card class="rounded-xl bg-secondary">
             <pre
                 ref="Syntax"
                 class="CodeBackground font-weight-bold"
@@ -28,10 +27,16 @@
 </template>
 
 <script>
-import codeRunner from './codeRunner.vue';
-import { template, script, methods, data } from '../../resources/baseCode';
-import { doubleQuotes, comma, nextLine, space, doublespace } from '@/resources/textHelpers';
+import { useDisplay, useTheme } from 'vuetify'
+import codeRunner from './codeRunner.vue'
+import { template, script, methods, data } from '../../resources/baseCode'
+import { doubleQuotes, comma, nextLine, space, doublespace } from '@/resources/textHelpers'
 export default {
+    setup() {
+        const display = useDisplay()
+        const theme = useTheme()
+        return { display, theme }
+    },
     props: { code: Array },
     data: () => ({ dialog: false }),
     components: { codeRunner },

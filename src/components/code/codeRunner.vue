@@ -1,14 +1,13 @@
 <template>
-  <v-dialog v-model="dialog" width="500" content-class="rounded-xl">
-    <template v-slot:activator="{ on, attrs }">
+  <v-dialog v-model="dialog" width="500" class="rounded-xl">
+    <template v-slot:activator="{ props }">
       <v-btn
         elevation="0"
         rounded
         color="accent"
         class="mr-2"
-        v-bind="attrs"
-        v-on="on"
-        :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+        v-bind="props"
+        :class="theme.global.current.value.dark ? 'text-white' : 'text-black'"
       >
         <v-icon size="25px" class="mr-2">mdi-play</v-icon>Test
       </v-btn>
@@ -16,11 +15,11 @@
     <v-card class="rounded-lg pa-2" style="overflow-x: hidden">
       <v-row class="pa-3">
         <v-card-title class="justify-center align-center">Form</v-card-title
-        ><v-spacer /><v-btn class="mt-3 mr-2" icon @click="dialog = false"
-          ><v-icon>mdi-close-circle</v-icon></v-btn
+        ><v-spacer /><v-btn class="mt-3 mr-2" icon="mdi-close-circle" @click="dialog = false"
+          ></v-btn
         ></v-row
       >
-      <v-form lazy-validation v-model="valid" ref="form">
+      <v-form v-model="valid" ref="form">
         <v-container class="text-center" fluid>
           <div v-for="(textfield, index) in code" :key="index">
             <div v-if="textfield.type === 'Date'">
@@ -28,44 +27,41 @@
                 ref="datePicker"
                 v-model="textfield.showDatePicker"
                 :close-on-content-click="false"
-                :return-value.sync="textfield.value"
-                transition="scale-transition"
-                offset-y
+                location="bottom"
                 min-width="auto"
               >
-                <template v-slot:activator="{ on, attrs }">
+                <template v-slot:activator="{ props }">
                   <v-text-field
                     v-model="textfield.value"
                     :rules="textfield.required ? [requiredRules] : []"
                     :label="textfield.title"
-                    :dense="textfield.dense"
-                    :outlined="textfield.outlined"
+                    :density="textfield.dense ? 'compact' : 'default'"
+                    :variant="textfield.outlined ? 'outlined' : 'filled'"
                     :class="textfield.rounded ? 'rounded-xl' : ''"
                     readonly
-                    v-bind="attrs"
-                    v-on="on"
+                    v-bind="props"
                   >
                   </v-text-field>
                 </template>
                 <v-date-picker
                   v-model="textfield.value"
-                  no-title
-                  scrollable
                   :min="textfield.minCurrentDay ? currentDay : ''"
                 >
-                  <v-spacer />
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="textfield.showDatePicker = false"
-                    >Cancel</v-btn
-                  >
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="$refs.datePicker[index].save(textfield.value)"
-                    >OK</v-btn
-                  >
+                  <template v-slot:actions>
+                    <v-spacer />
+                    <v-btn
+                      variant="text"
+                      color="primary"
+                      @click="textfield.showDatePicker = false"
+                      >Cancel</v-btn
+                    >
+                    <v-btn
+                      variant="text"
+                      color="primary"
+                      @click="textfield.showDatePicker = false"
+                      >OK</v-btn
+                    >
+                  </template>
                 </v-date-picker>
               </v-menu>
             </div>
@@ -74,8 +70,7 @@
                 v-model="textfield.value"
                 :label="textfield.title"
                 :rules="generateRules(textfield.required, textfield.type)"
-                :dense="textfield.dense"
-                :outlined="textfield.outlined"
+                :density="textfield.dense ? 'compact' : 'default'"
               ></v-checkbox>
             </div>
             <div v-else>
@@ -92,8 +87,8 @@
                     : ''
                 "
                 :label="textfield.title"
-                :dense="textfield.dense"
-                :outlined="textfield.outlined"
+                :density="textfield.dense ? 'compact' : 'default'"
+                :variant="textfield.outlined ? 'outlined' : 'filled'"
                 :class="textfield.rounded ? 'rounded-xl' : ''"
                 :counter="textfield.type === 'Text' && textfield.max !== 0"
                 :maxlength="
@@ -132,7 +127,13 @@
 </template>
 
 <script>
+import { useTheme } from 'vuetify'
+
 export default {
+  setup() {
+    const theme = useTheme()
+    return { theme }
+  },
   props: { code: Array },
   data: () => ({
     checkbox1: 0,

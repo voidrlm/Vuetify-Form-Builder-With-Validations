@@ -1,13 +1,13 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import routes from "./routes";
-Vue.use(VueRouter);
+import { createRouter, createWebHistory } from 'vue-router'
+import routes from './routes'
 
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes,
-});
+})
 
-export default router;
 router.afterEach((to) => {
-  document.title = to.name !== null ? to.name : "Vuetify Form Builder";
-});
+  document.title = to.name !== null ? to.name : 'Vuetify Form Builder'
+})
+
+export default router
