@@ -31,7 +31,7 @@
                 <v-row wrap class="justify-center align-center" :class="$vuetify.breakpoint.xsOnly ? 'my-n2' : 'my-n5'">
                     <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : $vuetify.breakpoint.mdOnly ? 8 : 9">
                         <v-slider
-                            :disabled="textfield.type !== 'Text' && textfield.type !== 'Number'"
+                            v-if="showMaxSlider(textfield.type)"
                             thumb-label
                             v-model="textfield.max"
                             class="mr-5 ml-2"
@@ -39,8 +39,20 @@
                             :max="textfield.type === 'Number' ? 25 : 500"
                             label="Max characters"
                         >
-                        </v-slider
-                    ></v-col>
+                        </v-slider>
+                        <!-- Textarea rows slider -->
+                        <v-slider
+                            v-else-if="textfield.type === 'Textarea'"
+                            thumb-label
+                            v-model="textfield.rows"
+                            class="mr-5 ml-2"
+                            color="primary"
+                            :min="1"
+                            :max="20"
+                            label="Rows"
+                        >
+                        </v-slider>
+                    </v-col>
                     <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : $vuetify.breakpoint.mdOnly ? 4 : 3">
                         <v-layout
                             class=""
@@ -53,8 +65,44 @@
                                 :class="!$vuetify.theme.dark ? 'white--text' : 'black--text'"
                                 :color="$vuetify.theme.dark ? 'primary lighten-1' : 'primary darken-1'"
                                 :label="'Required'"
-                            ></v-switch></v-layout></v-col></v-row
-            ></v-card-text>
+                            ></v-switch></v-layout></v-col></v-row>
+
+                <!-- Select field items configuration -->
+                <v-row v-if="textfield.type === 'Select'" class="mx-2 my-n3">
+                    <v-col cols="12">
+                        <v-combobox
+                            v-model="textfield.items"
+                            label="Select Options (press Enter to add)"
+                            multiple
+                            chips
+                            small-chips
+                            deletable-chips
+                            outlined
+                            dense
+                            class="rounded-lg"
+                            hint="Type an option and press Enter"
+                        ></v-combobox>
+                    </v-col>
+                </v-row>
+
+                <!-- Radio field items configuration -->
+                <v-row v-if="textfield.type === 'Radio'" class="mx-2 my-n3">
+                    <v-col cols="12">
+                        <v-combobox
+                            v-model="textfield.radioItems"
+                            label="Radio Options (press Enter to add)"
+                            multiple
+                            chips
+                            small-chips
+                            deletable-chips
+                            outlined
+                            dense
+                            class="rounded-lg"
+                            hint="Type an option and press Enter"
+                        ></v-combobox>
+                    </v-col>
+                </v-row>
+            </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
                 <v-tooltip bottom v-if="textfield.type === 'Number'">
@@ -89,6 +137,91 @@
                     </template>
                     <span>Date input cannot be before current day</span>
                 </v-tooltip>
+                <!-- Textarea auto-grow toggle -->
+                <v-tooltip bottom v-if="textfield.type === 'Textarea'">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-chip
+                            class="ma-2 font-weight-bold"
+                            :class="textfield.autoGrow ? 'success--text' : ''"
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                            pill
+                            @click="textfield.autoGrow = !textfield.autoGrow"
+                        >
+                            Auto Grow
+                        </v-chip>
+                    </template>
+                    <span>Textarea expands as you type</span>
+                </v-tooltip>
+                <!-- Select multiple toggle -->
+                <v-tooltip bottom v-if="textfield.type === 'Select'">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-chip
+                            class="ma-2 font-weight-bold"
+                            :class="textfield.multiple ? 'success--text' : ''"
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                            pill
+                            @click="textfield.multiple = !textfield.multiple"
+                        >
+                            Multiple
+                        </v-chip>
+                    </template>
+                    <span>Allow multiple selections</span>
+                </v-tooltip>
+                <!-- Select chips toggle -->
+                <v-tooltip bottom v-if="textfield.type === 'Select'">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-chip
+                            class="ma-2 font-weight-bold"
+                            :class="textfield.chips ? 'success--text' : ''"
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                            pill
+                            @click="textfield.chips = !textfield.chips"
+                        >
+                            Chips
+                        </v-chip>
+                    </template>
+                    <span>Display selections as chips</span>
+                </v-tooltip>
+                <!-- Radio inline toggle -->
+                <v-tooltip bottom v-if="textfield.type === 'Radio'">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-chip
+                            class="ma-2 font-weight-bold"
+                            :class="textfield.inline ? 'success--text' : ''"
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                            pill
+                            @click="textfield.inline = !textfield.inline"
+                        >
+                            Inline
+                        </v-chip>
+                    </template>
+                    <span>Display radio buttons in a row</span>
+                </v-tooltip>
+                <!-- Switch inset toggle -->
+                <v-tooltip bottom v-if="textfield.type === 'Switch'">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-chip
+                            class="ma-2 font-weight-bold"
+                            :class="textfield.inset ? 'success--text' : ''"
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                            pill
+                            @click="textfield.inset = !textfield.inset"
+                        >
+                            Inset
+                        </v-chip>
+                    </template>
+                    <span>Use inset style for switch</span>
+                </v-tooltip>
                 <v-chip
                     class="ma-2 font-weight-bold"
                     :class="textfield.dense ? 'success--text' : ''"
@@ -99,7 +232,7 @@
                     Dense
                 </v-chip>
                 <v-chip
-                    v-if="textfield.type !== 'Checkbox'"
+                    v-if="showOutlinedOption(textfield.type)"
                     class="ma-2 font-weight-bold"
                     :class="textfield.outlined ? 'success--text' : ''"
                     outlined
@@ -109,7 +242,7 @@
                     Outlined
                 </v-chip>
                 <v-chip
-                    v-if="textfield.type !== 'Checkbox'"
+                    v-if="showRoundedOption(textfield.type)"
                     class="ma-2 font-weight-bold"
                     :class="textfield.rounded ? 'success--text' : ''"
                     outlined
@@ -137,7 +270,7 @@
                 @click.stop="$emit('addField')"
                 :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
             >
-                <v-icon size="25px" class="mr-2">mdi-plus-circle</v-icon>Add text field
+                <v-icon size="25px" class="mr-2">mdi-plus-circle</v-icon>Add field
             </v-btn></v-layout
         >
     </div>
@@ -155,9 +288,23 @@ export default {
             { title: 'E-Mail' },
             { title: 'Date' },
             { title: 'Checkbox' },
+            { title: 'Textarea' },
+            { title: 'Select' },
+            { title: 'Radio' },
+            { title: 'Switch' },
         ],
     }),
-    methods: {},
+    methods: {
+        showMaxSlider(type) {
+            return type === 'Text' || type === 'Number' || type === 'Textarea';
+        },
+        showOutlinedOption(type) {
+            return !['Checkbox', 'Radio', 'Switch'].includes(type);
+        },
+        showRoundedOption(type) {
+            return !['Checkbox', 'Radio', 'Switch'].includes(type);
+        },
+    },
 };
 </script>
 <style></style>
