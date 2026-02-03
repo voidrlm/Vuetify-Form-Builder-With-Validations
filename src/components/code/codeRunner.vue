@@ -23,6 +23,7 @@
       <v-form lazy-validation v-model="valid" ref="form">
         <v-container class="text-center" fluid>
           <div v-for="(textfield, index) in code" :key="index">
+            <!-- Date Field -->
             <div v-if="textfield.type === 'Date'">
               <v-menu
                 ref="datePicker"
@@ -69,15 +70,78 @@
                 </v-date-picker>
               </v-menu>
             </div>
+
+            <!-- Checkbox Field -->
             <div v-else-if="textfield.type === 'Checkbox'">
               <v-checkbox
                 v-model="textfield.value"
                 :label="textfield.title"
                 :rules="generateRules(textfield.required, textfield.type)"
                 :dense="textfield.dense"
-                :outlined="textfield.outlined"
               ></v-checkbox>
             </div>
+
+            <!-- Textarea Field -->
+            <div v-else-if="textfield.type === 'Textarea'">
+              <v-textarea
+                v-model="textfield.value"
+                :label="textfield.title"
+                :rules="generateRules(textfield.required, textfield.type)"
+                :dense="textfield.dense"
+                :outlined="textfield.outlined"
+                :class="textfield.rounded ? 'rounded-xl' : ''"
+                :rows="textfield.rows || 3"
+                :auto-grow="textfield.autoGrow"
+                :counter="textfield.max > 0"
+                :maxlength="textfield.max > 0 ? textfield.max : undefined"
+              ></v-textarea>
+            </div>
+
+            <!-- Select Field -->
+            <div v-else-if="textfield.type === 'Select'">
+              <v-select
+                v-model="textfield.value"
+                :label="textfield.title"
+                :items="getSelectItems(textfield)"
+                :rules="generateRules(textfield.required, textfield.type)"
+                :dense="textfield.dense"
+                :outlined="textfield.outlined"
+                :class="textfield.rounded ? 'rounded-xl' : ''"
+                :multiple="textfield.multiple"
+                :chips="textfield.chips"
+              ></v-select>
+            </div>
+
+            <!-- Radio Field -->
+            <div v-else-if="textfield.type === 'Radio'">
+              <v-radio-group
+                v-model="textfield.value"
+                :rules="generateRules(textfield.required, textfield.type)"
+                :dense="textfield.dense"
+                :row="textfield.inline"
+                :label="textfield.title"
+              >
+                <v-radio
+                  v-for="(item, radioIndex) in getRadioItems(textfield)"
+                  :key="radioIndex"
+                  :label="item"
+                  :value="item"
+                ></v-radio>
+              </v-radio-group>
+            </div>
+
+            <!-- Switch Field -->
+            <div v-else-if="textfield.type === 'Switch'">
+              <v-switch
+                v-model="textfield.value"
+                :label="textfield.title"
+                :dense="textfield.dense"
+                :inset="textfield.inset"
+                :color="textfield.color || 'primary'"
+              ></v-switch>
+            </div>
+
+            <!-- Default Text/Number/Email/Password Fields -->
             <div v-else>
               <v-text-field
                 :hint="
@@ -95,27 +159,16 @@
                 :dense="textfield.dense"
                 :outlined="textfield.outlined"
                 :class="textfield.rounded ? 'rounded-xl' : ''"
-                :counter="textfield.type === 'Text' && textfield.max !== 0"
+                :counter="(textfield.type === 'Text' || textfield.type === 'Number') && textfield.max > 0"
                 :maxlength="
-                  textfield.type === 'Text' && textfield.max !== 0
+                  (textfield.type === 'Text' || textfield.type === 'Number') && textfield.max > 0
                     ? textfield.max
-                    : ''
+                    : undefined
                 "
                 :prefix="textfield.showDollarPrefix ? '$' : ''"
                 v-model="textfield.value"
                 :rules="generateRules(textfield.required, textfield.type)"
-                :type="
-                  (textfield.type === 'Password' &&
-                    textfield.showPassOnField) ||
-                  textfield.type === 'Text'
-                    ? 'text'
-                    : !textfield.showPassOnField &&
-                      textfield.type === 'Password'
-                    ? 'password'
-                    : textfield.type === 'E-Mail'
-                    ? 'email'
-                    : ''
-                "
+                :type="getFieldType(textfield)"
                 @click:append="
                   textfield.showPassOnField = !textfield.showPassOnField
                 "
@@ -153,18 +206,38 @@ export default {
       if (required) {
         rules.push(this.requiredRules);
       }
-      if (type !== "Text" && type !== "Checkbox") {
-        let ruleToAdd =
-          type === "Number"
-            ? this.numberRules
-            : type === "E-Mail"
-            ? this.emailRules
-            : type === "Password"
-            ? this.passwordRules
-            : "";
-        rules.push(ruleToAdd);
+      if (type === "Number") {
+        rules.push(this.numberRules);
+      } else if (type === "E-Mail") {
+        rules.push(this.emailRules);
+      } else if (type === "Password") {
+        rules.push(this.passwordRules);
       }
       return rules;
+    },
+    getFieldType(textfield) {
+      if (textfield.type === "Password") {
+        return textfield.showPassOnField ? "text" : "password";
+      }
+      if (textfield.type === "E-Mail") {
+        return "email";
+      }
+      if (textfield.type === "Number") {
+        return "number";
+      }
+      return "text";
+    },
+    getSelectItems(textfield) {
+      if (textfield.items && textfield.items.length > 0) {
+        return textfield.items;
+      }
+      return ["Option 1", "Option 2", "Option 3"];
+    },
+    getRadioItems(textfield) {
+      if (textfield.radioItems && textfield.radioItems.length > 0) {
+        return textfield.radioItems;
+      }
+      return ["Option 1", "Option 2"];
     },
     save() {
       if (this.$refs.form.validate()) {
